@@ -12,6 +12,7 @@
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bootstrapValidator.js"></script>
+	<script src="js/tool.js"></script>
     
 	<!--head files-->
 </head>

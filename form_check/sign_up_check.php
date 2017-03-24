@@ -23,7 +23,7 @@
       
       if ($conn->query($sql) === TRUE)
         {
-           echo "<script>alert('success!');</script>";
+           setcookie("login_user", $username, time()+3600,'/');  //设置登陆状态
            header("Location:../index.php"); 
         }
         else{

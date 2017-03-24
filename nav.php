@@ -22,10 +22,10 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"  data-toggle="modal" data-target="#loginModal">登录</a></li>
-        <li><a href="sign_up.php">注册</a></li>
-        <li><a href="user_info.php">个人信息</a></li>
-        <li><a href="#">退出登录</a></li>
+          <li><a href="#" id="login_button" data-toggle="modal" data-target="#loginModal">登录</a></li>
+          <li><a href="sign_up.php" id="sign_up_button">注册</a></li>
+          <li><a href="user_info.php" id="user_info_button">个人信息</a></li>
+          <li><a href="logout.php" id="logout_button">退出登录</a></li>
         <li><p>&nbsp&nbsp</p></li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -36,4 +36,21 @@
 
 <?php include 'login.php';?>
 
-
+<script type="text/javascript">
+  $(document).ready(function(){
+   var login_user="<?php echo $_COOKIE['login_user']; ?>";
+   if(login_user!=""){
+      $("#user_info_button").show();
+      $("#logout_button").show();
+      $("#login_button").hide();
+      $("#sign_up_button").hide();
+      document.getElementById("user_info_button").innerHTML="<span class='glyphicon glyphicon-user' aria-hidden='true'></span>&nbsp"+login_user;
+    }else{
+      $("#user_info_button").hide();
+      $("#logout_button").hide();
+      $("#login_button").show();
+      $("#sign_up_button").show();
+    }
+  });
+  
+</script>
