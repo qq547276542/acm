@@ -1,39 +1,66 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <?php include 'headfile.php';?>
+<?php include 'config/database.php';
+      include 'tool/tool.php'
+?>
 <body>
-  <?php include 'nav.php';?>
+<?php include 'nav.php';?>
+<?php 
+    // 创建连接
+$conn = get_connect();
+// 检测连接
+if ($conn->connect_error) {
+    die("连接失败: " . $conn->connect_error);
+}
+$username=$usertype=$email=$score=$teamname="";
+$lastdate=$name=$gender=$Tshirtsize=$studyyear=$major=$tel=$blog="";
+$sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,studyyear,major,tel,blog FROM person WHERE username='".$_COOKIE['login_user']."'";
+$conn->query("set names utf8");
+$result = $conn->query($sql);
 
+if ($result->num_rows > 0) {
+    // 输出每行数据
+    while($row = $result->fetch_assoc()) {
+        $username=$row["username"];$usertype=$row["usertype"];$email=$row["email"];
+        $score=$row["score"];$teamname=$row["teamname"];$lastdate=$row["lastdate"];
+        $name=$row["name"];$gender=$row["gender"];$Tshirtsize=$row["Tshirtsize"];
+        $studyyear=$row["studyyear"];$major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];
+    }
+} else {
+    echo $_COOKIE['login_user'];
+}
+$conn->close();
+?>
   <div class="row"> 
     <div class="col-md-6 col-md-offset-3"> <div class="panel panel-default">
-      <div class="panel-heading"><div class="text-info">个人信息 <a href="#"><span class="glyphicon glyphicon-edit"></span>编辑</a></div></div>
+      <div class="panel-heading"><div class="text-info">个人信息 <a href="edit_user_info.php"><span class="glyphicon glyphicon-edit"></span>编辑</a></div></div>
       <div class="panel-body">
         <div class="row">
           <div class="col-md-8">
             <!-- usertype：教练 退役队员 正式队员 后备队员-->
             <div class="page-header">
-              <h1><a href="#">qq547276542</a>&nbsp<small>正式队员</small></h1>
+              <h1><a href="#"><?php echo $username ?></a>&nbsp<small><?php echo $usertype ?></small></h1>
             </div>
-
             <!-- 做题积分 -->
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-stats"></span>&nbsp<nobr>做题积分: </nobr> <nobr  class="text-info" > 2333 </nobr> </p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-stats"></span>&nbsp<nobr>做题积分: </nobr> <nobr  class="text-info" > <?php echo $score ?> </nobr> </p>
             <!-- 队伍 --> 
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-tasks"></span>&nbsp<nobr>队伍: </nobr> <nobr  class="text-info" > 世界无dp </nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-tasks"></span>&nbsp<nobr>队伍: </nobr> <nobr  class="text-info" > <?php echo $teamname ?> </nobr></p>
             <!-- 真实姓名 -->
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-user"></span>&nbsp<nobr>真实姓名: </nobr> <nobr  class="text-info" > 刘磊 </nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-user"></span>&nbsp<nobr>真实姓名: </nobr> <nobr  class="text-info" > <?php echo $name ?> </nobr></p>
             <!-- 电子邮箱 -->
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-envelope"></span>&nbsp<nobr>email: </nobr> <nobr  class="text-info" > 547276542@qq.com </nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-envelope"></span>&nbsp<nobr>email: </nobr> <nobr  class="text-info" > <?php echo $email ?> </nobr></p>
             <!-- 性别 -->
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-record"></span>&nbsp<nobr>性别: </nobr> <nobr  class="text-info" > 男 </nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-record"></span>&nbsp<nobr>性别: </nobr> <nobr  class="text-info" > <?php echo $gender ?> </nobr></p>
             <!-- T恤尺码 -->
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-dashboard"></span>&nbsp<nobr>T恤尺码: </nobr> <nobr  class="text-info" > L </nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-dashboard"></span>&nbsp<nobr>T恤尺码: </nobr> <nobr  class="text-info" > <?php echo $Tshirtsize ?> </nobr></p>
             <!-- 入学年份 -->
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-bookmark"></span>&nbsp<nobr>入学年份: </nobr> <nobr  class="text-info" > 2013 </nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-bookmark"></span>&nbsp<nobr>入学年份: </nobr> <nobr  class="text-info" > <?php echo $studyyear ?> </nobr></p>
             <!-- 专业 -->
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-book"></span>&nbsp<nobr>专业: </nobr> <nobr  class="text-info" > 软件工程 </nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-book"></span>&nbsp<nobr>专业: </nobr> <nobr  class="text-info" ><?php echo $major ?> </nobr></p>
             <!-- 手机号码 -->
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-earphone"></span>&nbsp<nobr>联系电话: </nobr> <nobr  class="text-info" > 13939212325 </nobr></p>
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-pencil"></span>&nbsp<nobr>blog: </nobr> <nobr  class="text-info" > <a href="http://blog.csdn.net/qq547276542"> http://blog.csdn.net/qq547276542 </a></nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-earphone"></span>&nbsp<nobr>联系电话: </nobr> <nobr  class="text-info" > <?php echo $tel ?> </nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-pencil"></span>&nbsp<nobr>blog: </nobr> <nobr  class="text-info" > <a href="http://blog.csdn.net/qq547276542"> <?php echo $blog ?> </a></nobr></p>
           </div>
           <div class="col-md-4">
            <img src="picture/photo.jpg" alt="您的照片" class="img-thumbnail"/>

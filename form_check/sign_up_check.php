@@ -19,8 +19,8 @@
       }
       $sql="INSERT INTO person (username, password, email,usertype)
       VALUES
-      ('$username','$password','$email','student')";
-      
+      ('$username','$password','$email','正式队员')";
+      $conn->query("set names utf8");
       if ($conn->query($sql) === TRUE)
         {
            setcookie("login_user", $username, time()+3600,'/');  //设置登陆状态
