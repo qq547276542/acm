@@ -14,8 +14,8 @@ if ($conn->connect_error) {
     die("连接失败: " . $conn->connect_error);
 }
 $username=$usertype=$email=$score=$teamname="";
-$lastdate=$name=$gender=$Tshirtsize=$studyyear=$major=$tel=$blog="";
-$sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,studyyear,major,tel,blog FROM person WHERE username='".$_COOKIE['login_user']."'";
+$lastdate=$name=$gender=$Tshirtsize=$major=$tel=$blog="";
+$sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog FROM person WHERE username='".$_COOKIE['login_user']."'";
 $conn->query("set names utf8");
 $result = $conn->query($sql);
 
@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
         $username=$row["username"];$usertype=$row["usertype"];$email=$row["email"];
         $score=$row["score"];$teamname=$row["teamname"];$lastdate=$row["lastdate"];
         $name=$row["name"];$gender=$row["gender"];$Tshirtsize=$row["Tshirtsize"];
-        $studyyear=$row["studyyear"];$major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];
+        $major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];
     }
 } else {
     echo $_COOKIE['login_user'];
@@ -54,8 +54,6 @@ $conn->close();
             <p style="font-size: 18px;"><span class="glyphicon glyphicon-record"></span>&nbsp<nobr>性别: </nobr> <nobr  class="text-info" > <?php echo $gender ?> </nobr></p>
             <!-- T恤尺码 -->
             <p style="font-size: 18px;"><span class="glyphicon glyphicon-dashboard"></span>&nbsp<nobr>T恤尺码: </nobr> <nobr  class="text-info" > <?php echo $Tshirtsize ?> </nobr></p>
-            <!-- 入学年份 -->
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-bookmark"></span>&nbsp<nobr>入学年份: </nobr> <nobr  class="text-info" > <?php echo $studyyear ?> </nobr></p>
             <!-- 专业 -->
             <p style="font-size: 18px;"><span class="glyphicon glyphicon-book"></span>&nbsp<nobr>专业: </nobr> <nobr  class="text-info" ><?php echo $major ?> </nobr></p>
             <!-- 手机号码 -->

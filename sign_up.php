@@ -15,19 +15,19 @@
          <!--表单-->
          <form role="form" id="sign_up_form" action="form_check/sign_up_check.php" method="post">
           <div class="form-group">
-            <label for="username_sign_up">用户名</label>
+            <label for="username_sign_up">用户名<nobr class="text-danger">&nbsp*</nobr></label>
             <input type="text" class="form-control" id="username_sign_up" placeholder="Username" name="username">
           </div>
           <div class="form-group">
-           <label for="email_sign_up">电子邮箱</label>
+           <label for="email_sign_up">电子邮箱<nobr class="text-danger">&nbsp*</nobr></label>
            <input type="email" class="form-control" id="email_sign_up" placeholder="Enter email" name="email">
          </div>
          <div class="form-group">
-          <label for="password_sign_up">密码</label>
+          <label for="password_sign_up">密码<nobr class="text-danger">&nbsp*</nobr></label>
           <input type="password" class="form-control" id="password_sign_up" placeholder="Password" name="password">
         </div>
         <div class="form-group">
-          <label for="confirm_sign_up">确认密码</label>
+          <label for="confirm_sign_up">确认密码<nobr class="text-danger">&nbsp*</nobr></label>
           <input type="password" class="form-control" id="confirm_sign_up" placeholder="Confirm" name="confirmPassword">
         </div>
         <div class="row"> 
