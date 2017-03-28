@@ -2,36 +2,36 @@
 <html lang="zh-CN">
 <?php include 'headfile.php';?>
 <?php include 'config/database.php';
-      include 'tool/tool.php'
+include 'tool/tool.php'
 ?>
 <body>
-<?php include 'nav.php';?>
-<?php 
+  <?php include 'nav.php';?>
+  <?php 
     // 创建连接
-$conn = get_connect();
+  $conn = get_connect();
 // 检测连接
-if ($conn->connect_error) {
+  if ($conn->connect_error) {
     die("连接失败: " . $conn->connect_error);
-}
-$username=$usertype=$email=$score=$teamname="";
-$lastdate=$name=$gender=$Tshirtsize=$major=$tel=$blog="";
-$sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog FROM person WHERE username='".$_COOKIE['login_user']."'";
-$conn->query("set names utf8");
-$result = $conn->query($sql);
+  }
+  $username=$usertype=$email=$score=$teamname="";
+  $lastdate=$name=$gender=$Tshirtsize=$major=$tel=$blog="";
+  $sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog FROM person WHERE username='".$_COOKIE['login_user']."'";
+  $conn->query("set names utf8");
+  $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
+  if ($result->num_rows > 0) {
     // 输出每行数据
     while($row = $result->fetch_assoc()) {
-        $username=$row["username"];$usertype=$row["usertype"];$email=$row["email"];
-        $score=$row["score"];$teamname=$row["teamname"];$lastdate=$row["lastdate"];
-        $name=$row["name"];$gender=$row["gender"];$Tshirtsize=$row["Tshirtsize"];
-        $major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];
+      $username=$row["username"];$usertype=$row["usertype"];$email=$row["email"];
+      $score=$row["score"];$teamname=$row["teamname"];$lastdate=$row["lastdate"];
+      $name=$row["name"];$gender=$row["gender"];$Tshirtsize=$row["Tshirtsize"];
+      $major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];
     }
-} else {
+  } else {
     echo $_COOKIE['login_user'];
-}
-$conn->close();
-?>
+  }
+  $conn->close();
+  ?>
   <div class="row"> 
     <div class="col-md-6 col-md-offset-3"> <div class="panel panel-default">
       <div class="panel-heading"><div class="text-info">个人信息 <a href="edit_user_info.php"><span class="glyphicon glyphicon-edit"></span>编辑</a></div></div>
@@ -73,29 +73,29 @@ $conn->close();
 </div>
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
-     <div class="panel panel-default">
-      <div class="panel-heading"><div class="text-info"> 做题情况 </div></div>
-      <div class="panel-body">
-         <table class="table table-bordered table-striped">
-            <tr>
-              <td width="10%"><h4>OJ</h4></td>
-              <td width="10%"><h4>做题数</h4></td>
-              <td width="15%"><h4>用户名</h4></td>
-              <td width="60%"><h4>最近通过</h4></td>
-              <td width="5%"><h4>#</h4></td>
-            </tr>
-            <tr>
-              <td >poj</td>
-              <td >123</td>
-              <td >eason</td>
-              <td ><a href="#">1011</a> <a href="#">1021</a> <a href="#">2021</a></td>
-              <td ><button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
-            </tr>
-         </table>
-         <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 添加oj</button>
-      </div>
-     </div>
+   <div class="panel panel-default">
+    <div class="panel-heading"><div class="text-info"> 做题情况 </div></div>
+    <div class="panel-body">
+     <table class="table table-bordered table-striped">
+      <tr>
+        <td width="10%"><h4>OJ</h4></td>
+        <td width="10%"><h4>做题数</h4></td>
+        <td width="15%"><h4>用户名</h4></td>
+        <td width="60%"><h4>最近通过</h4></td>
+        <td width="5%"><h4>#</h4></td>
+      </tr>
+      <tr>
+        <td >poj</td>
+        <td >123</td>
+        <td >eason</td>
+        <td ><a href="#">1011</a> <a href="#">1021</a> <a href="#">2021</a></td>
+        <td ><button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+      </tr>
+    </table>
+    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 添加oj</button>
   </div>
+</div>
+</div>
 </div>
 </body>
 
