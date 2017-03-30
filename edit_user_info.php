@@ -125,6 +125,7 @@ function setCookie(cname,cvalue){
       alert("您已长时间没有进行操作，请重新登陆！");
       window.location.assign("index.php");
     }else{
+      setCookie("login_user",getCookie("login_user"));
     }
 
    //设置select标签缺省值

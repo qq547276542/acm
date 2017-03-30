@@ -165,3 +165,29 @@
 </body>
 
 </html>
+<script type="text/javascript">
+  function getCookie(cname){
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=ca.length-1; i>=0; i--) 
+    {
+      var c = ca[i].trim();
+      if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+    }
+    return "";
+  }
+  function setCookie(cname,cvalue){
+    var d = new Date();
+    d.setTime(d.getTime()+(60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = cname + "=" + cvalue + "; " + expires+"; path=/";
+  }
+  $(document).ready(function(){ 
+    if(getCookie("login_user")==""){
+      
+    }else{
+      setCookie("login_user",getCookie("login_user"));
+    }
+
+  });
+</script>
