@@ -38,7 +38,7 @@ include 'tool/tool.php'
        <div class="panel-heading">
         <div class="text-info">修改个人信息</div></div>
         <div class="panel-body">
-          <form  action="form_check/edit_user_info_check.php" method="post" enctype="multipart/form-data">
+          <form  action="form_check/edit_user_info_check.php" enctype="multipart/form-data" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label for="password">当前密码<nobr class="text-danger">&nbsp*</nobr></label>
               <input type="password" class="form-control" id="password" name="password">
@@ -53,7 +53,7 @@ include 'tool/tool.php'
               <input  class="form-control" id="name" name="name"  value=<?php echo "'".$name."'"?>>
             </div>
             <div class="form-group">
-              <label for="avatar" class="control-label">上传头像</label>
+              <label for="avatar" class="control-label">上传头像 (只支持png/jpg/jpeg/gif格式)</label>
               <input type="file" class="form-control" id="avatar" name="avatar" />
             </div>
             <div class="form-group">
@@ -126,15 +126,10 @@ function setCookie(cname,cvalue){
       window.location.assign("index.php");
     }else{
     }
-    if(getCookie("update_info")=="false"){
-      setCookie("update_info","");   
-      alert("密码输入有误，更新失败,请重新输入密码！");
-    }else{
-    }
 
    //设置select标签缺省值
-   document.getElementById("gender")[1].selected=true;
-   document.getElementById("Tshirtsize")[2].selected=true; 
+   document.getElementById("gender").value=<?php echo "'".$gender."'"?>;
+   document.getElementById("Tshirtsize").value=<?php echo "'".$Tshirtsize."'"?>; 
  });
 
 </script>

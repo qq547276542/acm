@@ -28,11 +28,11 @@
             setcookie("login_user", $username, time()+3600,'/');  //设置登陆状态
             header("Location:../index.php");  
           }else{
-            echo "密码错误！";
+            echo "<script>alert('密码错误，请重新输入！'); history.go(-1);</script>";
           }
          }
       } else {
-        echo "用户名不存在";
+        echo "<script>alert('用户名不存在，请重新输入！'); history.go(-1);</script>";
       }
       $conn->close();
       

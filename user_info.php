@@ -14,8 +14,8 @@ include 'tool/tool.php'
     die("连接失败: " . $conn->connect_error);
   }
   $username=$usertype=$email=$score=$teamname="";
-  $lastdate=$name=$gender=$Tshirtsize=$major=$tel=$blog="";
-  $sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog FROM person WHERE username='".$_COOKIE['login_user']."'";
+  $lastdate=$name=$gender=$Tshirtsize=$major=$tel=$blog=$avatar;
+  $sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog,avatar FROM person WHERE username='".$_COOKIE['login_user']."'";
   $conn->query("set names utf8");
   $result = $conn->query($sql);
 
@@ -25,7 +25,7 @@ include 'tool/tool.php'
       $username=$row["username"];$usertype=$row["usertype"];$email=$row["email"];
       $score=$row["score"];$teamname=$row["teamname"];$lastdate=$row["lastdate"];
       $name=$row["name"];$gender=$row["gender"];$Tshirtsize=$row["Tshirtsize"];
-      $major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];
+      $major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];$avatar=$row["avatar"];
     }
   } else {
     echo $_COOKIE['login_user'];
@@ -58,10 +58,10 @@ include 'tool/tool.php'
             <p style="font-size: 18px;"><span class="glyphicon glyphicon-book"></span>&nbsp<nobr>专业: </nobr> <nobr  class="text-info" ><?php echo $major ?> </nobr></p>
             <!-- 手机号码 -->
             <p style="font-size: 18px;"><span class="glyphicon glyphicon-earphone"></span>&nbsp<nobr>联系电话: </nobr> <nobr  class="text-info" > <?php echo $tel ?> </nobr></p>
-            <p style="font-size: 18px;"><span class="glyphicon glyphicon-pencil"></span>&nbsp<nobr>blog: </nobr> <nobr  class="text-info" > <a href="http://blog.csdn.net/qq547276542"> <?php echo $blog ?> </a></nobr></p>
+            <p style="font-size: 18px;"><span class="glyphicon glyphicon-pencil"></span>&nbsp<nobr>blog: </nobr> <nobr  class="text-info" > <a href=<?php echo "'".$blog."'" ?>> <?php echo $blog ?> </a></nobr></p>
           </div>
           <div class="col-md-4">
-           <img src="picture/photo.jpg" alt="您的照片" class="img-thumbnail"/>
+           <img src=<?php echo "'"."picture/".$avatar."'"; ?> alt="您的照片" class="img-thumbnail"/>
          </div>
        </div>
 
@@ -99,4 +99,31 @@ include 'tool/tool.php'
 </div>
 </body>
 
-</html>           
+</html>         
+<script type="text/javascript">
+  function getCookie(cname){
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=ca.length-1; i>=0; i--) 
+    {
+      var c = ca[i].trim();
+      if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+    }
+    return "";
+  }
+  function setCookie(cname,cvalue){
+    var d = new Date();
+    d.setTime(d.getTime()+(60*60*1000));
+    var expires = "expires="+d.toGMTString();
+    document.cookie = cname + "=" + cvalue + "; " + expires+"; path=/";
+  }
+  $(document).ready(function(){ 
+    if(getCookie("login_user")==""){
+      alert("您已长时间没有进行操作，请重新登陆！");
+      window.location.assign("index.php");
+    }else{
+    }
+
+  });
+
+</script>  

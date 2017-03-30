@@ -17,14 +17,14 @@
       {
          die("connect failed: " . $conn->connect_error);
       }
-      $sql="INSERT INTO person (username, password, email,usertype)
+      $sql="INSERT INTO person (username, password, email,usertype,avatar)
       VALUES
-      ('$username','$password','$email','正式队员')";
+      ('$username','$password','$email','正式队员','init_avatar.jpg')";
       $conn->query("set names utf8");
       if ($conn->query($sql) === TRUE)
         {
            setcookie("login_user", $username, time()+3600,'/');  //设置登陆状态
-           header("Location:../index.php"); 
+           header("Location:../edit_user_info.php"); 
         }
         else{
         // echo "<script type='text/javascript'> alert('该用户名已经存在！'); </script>";

@@ -1,3 +1,13 @@
 队员只能看top10的刷题排行和自己的排名
 管理员可以看所有成员的排行
 
+配置注意---------------
+PHP7.0
+数据库mysql  Version:5.7.17   用户名upcacm   密码upcacm  数据库acmdb
+设置项目所在文件夹的权限为777： chmod -R 777 项目目录
+强制修改数据库的默认字符集为utf8
+ALTER DATABASE 'db_name' DEFAULT CHARACTER SET utf8
+
+
+
+
