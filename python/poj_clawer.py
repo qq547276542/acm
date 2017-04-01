@@ -59,8 +59,8 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
 
 	# 使用cursor()方法获取操作游标 
 	cursor = db.cursor()
-
-    for i in range(len(alist)):
+    
+	for i in range(len(alist)):
 		# SQL 插入语句
 		sql = """INSERT INTO clawer(username,
    	      ojname, ojusername, sloved, recent)
@@ -73,9 +73,10 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
 		except:
  		  # Rollback in case there is any error
   		  db.rollback()	
+
 		sql = """UPDATE clawer SET
           sloved= """+alist[i][2]+",recent='"+alist[i][3]+"""' WHERE
-          username='"""+alist[i][0]+"' AND ojname='"+alist[i][1]+"' AND ojusername='"+alist[i][2]+"'"
+          username='"""+alist[i][0]+"' AND ojname='poj' AND ojusername='"+alist[i][1]+"'"
 		try:
 		   # 执行sql语句
  		  cursor.execute(sql)
