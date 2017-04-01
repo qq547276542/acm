@@ -79,15 +79,15 @@ include 'tool/tool.php'
      <table class="table table-bordered table-striped">
       <tr>
         <td width="10%"><h4>OJ</h4></td>
-        <td width="10%"><h4>做题数</h4></td>
         <td width="15%"><h4>用户名</h4></td>
+        <td width="15%"><h4>通过数</h4></td>
         <td width="60%"><h4>最近通过</h4></td>
         <td width="5%"><h4>#</h4></td>
       </tr>
       <tr>
         <td >poj</td>
-        <td >123</td>
         <td >eason</td>
+        <td >123</td>
         <td ><a href="#">1011</a> <a href="#">1021</a> <a href="#">2021</a></td>
         <td ><button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
       </tr>
