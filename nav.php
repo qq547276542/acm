@@ -15,10 +15,7 @@
         <li ><a href="index.php">主页</a></li>
         <li ><a href="#">查看组队信息</a></li>
         <li ><a href="#">Oj传送门</a></li>
-        <li ><a href="#">模板库</a></li>
         <li ><a href="#">队员管理*</a></li>
-        <li ><a href="#">Oj管理*</a></li>
-        <li ><a href="#">组队管理*</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">

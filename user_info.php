@@ -18,7 +18,6 @@ include 'tool/tool.php'
   $sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog,avatar FROM person WHERE username='".$_COOKIE['login_user']."'";
   $conn->query("set names utf8");
   $result = $conn->query($sql);
-
   if ($result->num_rows > 0) {
     // 输出每行数据
     while($row = $result->fetch_assoc()) {
@@ -30,6 +29,24 @@ include 'tool/tool.php'
   } else {
     echo $_COOKIE['login_user'];
   }
+
+  $ojname=$ojusername=$recent=$sloved=$problemurl=null;
+  $sql = "SELECT ojname,ojusername,recent,sloved,problemurl FROM clawer WHERE username='".$_COOKIE['login_user']."'";
+  $conn->query("set names utf8");
+  $result = $conn->query($sql);
+  $len=0;
+  if ($result->num_rows > 0) {
+    // 输出每行数据
+    while($row = $result->fetch_assoc()) {
+      $ojname[$len]=$row["ojname"];$ojusername[$len]=$row["ojusername"];
+      $recent[$len]=$row["recent"];$sloved[$len]=$row["sloved"];$problemurl[$len]=$row["problemurl"];
+      $recent[$len]=explode(" ", $recent[$len]);   //分解成数组
+      $len=$len+1;
+    }
+  } else {
+    echo $_COOKIE['login_user'];
+  }
+
   $conn->close();
   ?>
   <div class="row"> 
@@ -84,13 +101,23 @@ include 'tool/tool.php'
         <td width="60%"><h4>最近通过</h4></td>
         <td width="5%"><h4>#</h4></td>
       </tr>
-      <tr>
-        <td >poj</td>
-        <td >eason</td>
-        <td >123</td>
-        <td ><a href="#">1011</a> <a href="#">1021</a> <a href="#">2021</a></td>
-        <td ><button type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
-      </tr>
+      <?php 
+       //$i:用户的第i个oj   $j:用户第i个oj解决的第j个题目
+       for($i=0;$i<$len;$i++){
+         echo "<tr>";
+         echo "  <td> ".$ojname[$i]."</td>";
+         echo "  <td >".$username."</td>";
+         echo "  <td >".$sloved[$i]."</td>";
+         echo "  <td >";
+         for($j=0;$j<count($recent[$i]);$j++){
+            echo "<a href='".$problemurl[$i].$recent[$i][$j]."''>".$recent[$i][$j]."</a> &nbsp";
+         }
+         echo "  </td >";
+         echo "  <td ><button type='button' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></td>";
+         echo "</tr>";
+       }
+      ?>
+
     </table>
     <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 添加oj</button>
   </div>

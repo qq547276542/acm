@@ -33,15 +33,15 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
             number_solved = 0  
         else:  
             number_solved = list_solved[0]
- 
+
         list_recentProblem= zhenghe_poj(result_poj,line,imgre_recentProblem)
         if len(list_recentProblem)>1:
         	list_str=list_recentProblem[1]
         else:
         	list_str=""
-        for i in range(2,len(list_recentProblem),11):
+        for i in range(2,min(len(list_recentProblem),51)):
         	list_str=list_str+" "+list_recentProblem[i]
-        alist.append(['chenyz',line,number_solved,list_str])  
+        alist.append(['321321',line,number_solved,list_str])  
     
     print "---------------poj:-------------------"
     print "username       ojusername          Solved          recentProblem"
@@ -63,8 +63,8 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
 	for i in range(len(alist)):
 		# SQL 插入语句
 		sql = """INSERT INTO clawer(username,
-   	      ojname, ojusername, sloved, recent)
-   	      VALUES ("""+"'"+alist[i][0]+"', 'poj', '"+alist[i][1]+"', "+alist[i][2]+", '"+alist[i][3]+"')"
+   	      ojname, ojusername, sloved, recent, problemurl)
+   	      VALUES ("""+"'"+alist[i][0]+"', 'poj', '"+alist[i][1]+"', "+alist[i][2]+", '"+alist[i][3]+"','http://poj.org/problem?id=')"
 		try:
 		  # 执行sql语句
  		  cursor.execute(sql)
@@ -75,7 +75,7 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
   		  db.rollback()	
 
 		sql = """UPDATE clawer SET
-          sloved= """+alist[i][2]+",recent='"+alist[i][3]+"""' WHERE
+          sloved= """+alist[i][2]+",recent='"+alist[i][3]+"""',problemurl='http://poj.org/problem?id=' WHERE
           username='"""+alist[i][0]+"' AND ojname='poj' AND ojusername='"+alist[i][1]+"'"
 		try:
 		   # 执行sql语句
