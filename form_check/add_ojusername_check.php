@@ -12,9 +12,9 @@ include '../tool/tool.php'
      $sql = "INSERT INTO clawer (username, ojname, ojusername)
      VALUES ('".$_COOKIE['login_user']."','".$_POST['choose_oj']."','".$_POST['ojusername']."')";
      if ($conn->query($sql) === TRUE) {
-      echo "<script>alert('oj帐号添加成功！');location.href='../user_info.php';</script>";
+      echo "<script>location.href='../user_info.php';</script>";
     } else {
-      echo "<script>alert('oj帐号添加失败！请检查是否重复添加oj信息');location.href='../user_info.php';</script>";
+      echo "<script>location.href='../user_info.php';</script>";
     }
     
     $conn->close();
