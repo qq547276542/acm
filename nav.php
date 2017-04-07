@@ -13,9 +13,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li ><a href="index.php">主页</a></li>
-        <li ><a href="#">查看组队信息</a></li>
+        <li ><a href="#">队员排名</a></li>
+        <li ><a href="#">组队信息</a></li>
         <li ><a href="#">Oj传送门</a></li>
-        <li ><a href="#">队员管理*</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">

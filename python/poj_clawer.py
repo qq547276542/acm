@@ -17,16 +17,35 @@ def zhenghe_poj(str1,userid,imgre):
     return re.findall(imgre,html)  
 
 def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
-    file_object = open("users.txt",'r')  
-    
+    # file_object = open("users.txt",'r')  
+    ojname_list = [] #oj帐号列表
     reg_solved = '<tr><td width=15% align=left>Solved:</td>[\s\S]*?<td align=center width=25%><a href=.*?>(.+?)</a></td>'  
     imgre_solved = re.compile(reg_solved)  
 
     reg_recentProblem = "p\((.+?)\)"
     imgre_recentProblem = re.compile(reg_recentProblem)
     
+    db = connect_mysql()
+    # 使用cursor()方法获取操作游标 
+    cursor = db.cursor()
+
+	# SQL 查询语句
+    sql = "SELECT distinct ojusername FROM clawer  WHERE  ojname='poj' " 
+    try:
+  	  # 执行SQL语句
+      cursor.execute(sql)
+ 	  # 获取所有记录列表
+      results = cursor.fetchall()
+      for row in results:
+          ojname_list.append(row[0])
+    except:
+  	print "Error: unable to fecth data"
+
+	# 关闭数据库连接
+	db.close()
+
     alist = []  #定义一个列表  
-    for line in file_object:  #每一行为一个用户名，分别分析
+    for line in ojname_list:  #每一行为一个用户名，分别分析
         line=line.strip('\n')    #去掉读取的每行的"\n"  
         list_solved = zhenghe_poj(result_poj,line,imgre_solved)   
         if len(list_solved) == 0:  #如果该用户页面不存在
@@ -41,7 +60,7 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
         	list_str=""
         for i in range(2,len(list_recentProblem)):
         	list_str=list_str+" "+list_recentProblem[i]
-        alist.append(['321321',line,number_solved,list_str])  
+        alist.append(['暂时没用',line,number_solved,list_str])  
     
     print "---------------poj:-------------------"
     print "username       ojusername          Solved          recentProblem"
@@ -62,31 +81,32 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
     
 	for i in range(len(alist)):
 		# SQL 插入语句
-		sql = """INSERT INTO clawer(username,
-   	      ojname, ojusername, sloved, recent, problemurl)
-   	      VALUES ("""+"'"+alist[i][0]+"', 'poj', '"+alist[i][1]+"', "+alist[i][2]+", '"+alist[i][3]+"','http://poj.org/problem?id=')"
-		try:
+		#sql = """INSERT INTO clawer(username,
+   	   #   ojname, ojusername, sloved, recent, problemurl)
+   	   #   VALUES ("""+"'"+alist[i][0]+"', 'poj', '"+alist[i][1]+"', "+alist[i][2]+", '"+alist[i][3]+"','http://poj.org/problem?id=')"
+		#try:
 		  # 执行sql语句
- 		  cursor.execute(sql)
+ 		#  cursor.execute(sql)
  		  # 提交到数据库执行
- 		  db.commit()
-		except:
+ 		#  db.commit()
+	#	except:
  		  # Rollback in case there is any error
-  		  db.rollback()	
+	#	  db.rollback()	
 
 		sql = """UPDATE clawer SET
-          sloved= """+alist[i][2]+",recent='"+alist[i][3]+"""',problemurl='http://poj.org/problem?id=' WHERE
-          username='"""+alist[i][0]+"' AND ojname='poj' AND ojusername='"+alist[i][1]+"'"
+			sloved= """+alist[i][2]+",recent='"+alist[i][3]+"""',problemurl='http://poj.org/problem?id=' WHERE
+			ojname='poj' AND ojusername='"""+alist[i][1]+"' "
 		try:
-		   # 执行sql语句
- 		  cursor.execute(sql)
- 		  # 提交到数据库执行
- 		  db.commit()
+			 # 执行sql语句
+			cursor.execute(sql)
+			# 提交到数据库执行
+			db.commit()
 		except:
- 		  # Rollback in case there is any error
-  		  db.rollback()	
+			# Rollback in case there is any error
+			print "sql error"
+			db.rollback()	
 		# 关闭数据库连接
-		db.close()
+	db.close()
 
 
 result_poj = "http://poj.org/userstatus?user_id="  
