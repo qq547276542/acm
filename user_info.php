@@ -30,8 +30,8 @@ include 'tool/tool.php'
     echo $_COOKIE['login_user'];
   }
 
-  $ojname=$ojusername=$recent=$sloved=$problemurl=null;
-  $sql = "SELECT ojname,ojusername,recent,sloved,problemurl FROM clawer WHERE username='".$_COOKIE['login_user']."'";
+  $ojname=$ojusername=$recent=$sloved=$problemurl=$rating=null;
+  $sql = "SELECT ojname,ojusername,recent,sloved,problemurl,rating FROM clawer WHERE username='".$_COOKIE['login_user']."'";
   $conn->query("set names utf8");
   $result = $conn->query($sql);
   $len=0;
@@ -40,6 +40,7 @@ include 'tool/tool.php'
     while($row = $result->fetch_assoc()) {
       $ojname[$len]=$row["ojname"];$ojusername[$len]=$row["ojusername"];
       $recent[$len]=$row["recent"];$sloved[$len]=$row["sloved"];$problemurl[$len]=$row["problemurl"];
+      $rating[$len]=$row["rating"];
       $recent[$len]=explode(" ", $recent[$len]);   //分解成数组
       $len=$len+1;
     }
@@ -96,37 +97,42 @@ include 'tool/tool.php'
      <table class="table table-bordered table-striped">
       <tr>
         <td width="10%"><h4>OJ</h4></td>
-        <td width="15%"><h4>用户名</h4></td>
-        <td width="15%"><h4>通过数</h4></td>
-        <td width="60%"><h4>最近通过</h4></td>
+        <td width="10%"><h4>帐号</h4></td>
+        <td width="10%"><h4>rating</h4></td>
+        <td width="10%"><h4>通过数</h4></td>
+        <td width="60%"><h4>做题列表</h4></td>
         <td width="5%"><h4>#</h4></td>
       </tr>
       <?php 
        //$i:用户的第i个oj   $j:用户第i个oj解决的第j个题目
        for($i=0;$i<$len;$i++){
+         if($rating[$i]==null)
+           $rating[$i]="---";
          echo "<tr>";
          echo "  <td> ".$ojname[$i]."</td>";
-         echo "  <td >".$username."</td>";
+         echo "  <td >".$ojusername[$i]."</td>";
+         echo "  <td >".$rating[$i]."</td>";
          echo "  <td >".$sloved[$i]."</td>";
          echo "  <td >";
          for($j=0;$j<count($recent[$i]);$j++){
             echo "<a href='".$problemurl[$i].$recent[$i][$j]."''>".$recent[$i][$j]."</a> &nbsp";
          }
          echo "  </td >";
-         echo "  <td ><button type='button' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></td>";
+         echo "  <td ><button type='button' class='btn btn-danger btn-xs' onClick='delete_item(".$i.");'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></td>";
          echo "</tr>";
        }
       ?>
 
     </table>
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 添加oj</button>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addOjusernameModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 添加oj帐号</button>
   </div>
 </div>
 </div>
 </div>
+<?php include 'add_ojusername.php' ?>  
 </body>
+</html>       
 
-</html>         
 <script type="text/javascript">
   function getCookie(cname){
     var name = cname + "=";
@@ -153,5 +159,11 @@ include 'tool/tool.php'
     }
 
   });
+
+  function delete_item(i){
+    <?php 
+        echo "alert(i)";
+    ?>
+  }
 
 </script>  

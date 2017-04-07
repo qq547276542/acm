@@ -39,7 +39,7 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
         	list_str=list_recentProblem[1]
         else:
         	list_str=""
-        for i in range(2,min(len(list_recentProblem),51)):
+        for i in range(2,len(list_recentProblem)):
         	list_str=list_str+" "+list_recentProblem[i]
         alist.append(['321321',line,number_solved,list_str])  
     

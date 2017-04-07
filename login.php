@@ -26,9 +26,7 @@
         <button type="submit" class="btn btn-primary">&nbsp登录&nbsp</button>
       </div>
     </form>
-  </div>
-  
-  
+  </div> 
 </div>
 </div>
 </div>
