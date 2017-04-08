@@ -21,7 +21,12 @@
       <ul class="nav navbar-nav navbar-right">
           <li><a href="#" id="login_button" data-toggle="modal" data-target="#loginModal"></a></li>
           <li><a href="sign_up.php" id="sign_up_button"></a></li>
-          <li><a href="user_info.php" id="user_info_button"></a></li>
+          <li><a href="#" id="user_menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a> 
+           <ul class="dropdown-menu">
+            <li><a href="user_info.php" id="user_info_button">个人信息</a></li>
+            <li><a href="edit_user_info.php" id="edit_user_info_button">编辑信息</a></li>
+           </ul>
+          </li>
           <li><a href="logout.php" id="logout_button"></a></li>
         <li><p>&nbsp&nbsp</p></li>
       </ul>
@@ -39,19 +44,17 @@
    if(login_user!=""){
       document.getElementById("login_button").innerHTML="";
       document.getElementById("sign_up_button").innerHTML="";
-      document.getElementById("user_info_button").innerHTML="个人信息";
       document.getElementById("logout_button").innerHTML="退出登录";
-      document.getElementById("user_info_button").innerHTML="<span class='glyphicon glyphicon-user' aria-hidden='true'></span>&nbsp"+login_user;
-      $("#user_info_button").show();
+      document.getElementById("user_menu").innerHTML="<span class='glyphicon glyphicon-user' aria-hidden='true'></span>&nbsp"+login_user+"<span class='caret'></span>";
+      $("#user_menu").show();
       $("#logout_button").show();
       $("#login_button").hide();
       $("#sign_up_button").hide();
     }else{
       document.getElementById("login_button").innerHTML="登陆";
       document.getElementById("sign_up_button").innerHTML="注册";
-      document.getElementById("user_info_button").innerHTML="";
       document.getElementById("logout_button").innerHTML="";
-      $("#user_info_button").hide();
+      $("#user_menu").hide();
       $("#logout_button").hide();
       $("#login_button").show();
       $("#sign_up_button").show();

@@ -92,9 +92,8 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
 	#	except:
  		  # Rollback in case there is any error
 	#	  db.rollback()	
-
 		sql = """UPDATE clawer SET
-			sloved= """+alist[i][2]+",recent='"+alist[i][3]+"""',problemurl='http://poj.org/problem?id=' WHERE
+			sloved= """+str(alist[i][2])+",recent='"+alist[i][3]+"""',problemurl='http://poj.org/problem?id=' WHERE
 			ojname='poj' AND ojusername='"""+alist[i][1]+"' "
 		try:
 			 # 执行sql语句
