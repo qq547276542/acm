@@ -111,7 +111,7 @@ def output_hdu(result_hdu):  #result_xoj: xoj用户数据界面的前缀url
 
 
 result_hdu = "http://acm.hdu.edu.cn/userstatus.php?user="  
-
+   
 print "正在生成数据......"  
 output_hdu(result_hdu)
 print "数据抓取完毕！"
