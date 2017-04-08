@@ -99,7 +99,7 @@ $conn->close();
                 <td width="10%"><h4>帐号</h4></td>
                 <td width="10%"><h4>rating</h4></td>
                 <td width="10%"><h4>通过数</h4></td>
-                <td width="60%"><h4>做题列表</h4></td>
+                <td width="60%"><h4>做题(比赛)列表</h4></td>
                 <td width="5%"><h4>#</h4></td>
             </tr>
             <?php 
@@ -112,9 +112,17 @@ $conn->close();
              echo "  <td >".$ojusername[$i]."</td>";
              echo "  <td >".$rating[$i]."</td>";
              echo "  <td >".$sloved[$i]."</td>";
-             echo "  <td >&nbsp";
+             echo "  <td >";
              for($j=0;$j<count($recent[$i]);$j++){
-                echo "<a href='".$problemurl[$i].$recent[$i][$j]."''>".$recent[$i][$j]."</a> &nbsp";
+                if($ojname[$i]=='codeforces'||$ojname[$i]=='bestcoder'){
+                     echo "&nbsp&nbsp&nbsp<a href='".$problemurl[$i].$recent[$i][$j+1]."''>".$recent[$i][$j]."</a> ";
+                     $j++;
+                }else{
+                     echo "&nbsp&nbsp&nbsp<a href='".$problemurl[$i].$recent[$i][$j]."''>".$recent[$i][$j]."</a> ";
+                 }
+                if($ojname[$i]=='codeforces'||$ojname[$i]=='bestcoder'){
+                   echo "<br/>";
+                }
             }
             echo "  </td >";
             echo "  <td ><button type='button' class='btn btn-danger btn-xs' onClick='delete_item(".$i.");'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></td>";
