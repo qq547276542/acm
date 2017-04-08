@@ -27,6 +27,9 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
     reg_recentID = '<td>\r\n[\s\S]*?<a href="/contest/([0-9]+?)" title=".+?">'  #获取cf的比赛号，生成超链接时使用
     imgre_recentID = re.compile(reg_recentID)
 
+    reg_rating = '</td>\r\n[\s\S]*?<td>\r\n[\s]*?([\S]*?)[\s]*?</td>\r\n[\s\S]*?<td>\r\n[\s\S]*?</td>\r\n[\s\S]*?</tr>'
+    imgre_rating = re.compile(reg_rating)
+
     db = connect_mysql()
     # 使用cursor()方法获取操作游标 
     cursor = db.cursor()
@@ -57,6 +60,13 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
             for i in range(len(list_solved)):
                 number_solved = number_solved + int(list_solved[i])
 
+        list_rating = zhenghe_codeforces(result_codeforces,line,imgre_rating)  #爬取rating 数据
+        if len(list_rating) == 0: 
+            number_rating = 0
+        else:
+            number_rating = int(list_rating[0])
+
+
         list_recentProblem= zhenghe_codeforces(result_codeforces,line,imgre_recentProblem)
         list_recentID = zhenghe_codeforces(result_codeforces,line,imgre_recentID)
         if len(list_recentProblem)>1:
@@ -69,10 +79,10 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
             list_recentProblem[i]=list_recentProblem[i].replace(" ","_")  #用下划线代替空格
             list_str=list_str+" "+list_recentProblem[i]
             list_str=list_str+" "+list_recentID[i]
-        alist.append(['暂时没用',line,number_solved,list_str])  
+        alist.append(['暂时没用',line,number_solved,list_str,number_rating])  
     
     print "---------------codeforces:-------------------"
-    print "username       ojusername          Solved          recentProblem"
+    print "username       ojusername          Solved          recentProblem          rating"
     for i in range(len(alist)):
     	print alist[i][0],
     	print "       ",
@@ -81,6 +91,8 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
     	print alist[i][2],
     	print "       ",
     	print alist[i][3]
+        print "       ",
+        print alist[i][4]
 
     # 打开数据库连接
 	db = connect_mysql()
@@ -102,8 +114,8 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
  		  # Rollback in case there is any error
 	#	  db.rollback()	
 		sql = """UPDATE clawer SET
-			sloved= """+str(alist[i][2])+",recent='"+alist[i][3]+"""',problemurl='http://codeforces.com/contest/' WHERE
-			ojname='codeforces' AND ojusername='"""+alist[i][1]+"' "
+			sloved= """+str(alist[i][2])+",recent='"+alist[i][3]+"',problemurl='http://codeforces.com/contest/',"+" rating='"+str(alist[i][4])+"""' 
+            WHERE ojname='codeforces' AND ojusername='"""+alist[i][1]+"' "
 		try:
 			 # 执行sql语句
 			cursor.execute(sql)
