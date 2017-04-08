@@ -99,7 +99,7 @@ $conn->close();
                 <td width="10%"><h4>帐号</h4></td>
                 <td width="10%"><h4>rating</h4></td>
                 <td width="10%"><h4>通过数</h4></td>
-                <td width="60%"><h4>做题(比赛)列表</h4></td>
+                <td width="60%"><h4>近期比赛/做题列表</h4></td>
                 <td width="5%"><h4>#</h4></td>
             </tr>
             <?php 
@@ -116,7 +116,7 @@ $conn->close();
              for($j=0;$j<count($recent[$i]);$j++){
                 if($ojname[$i]=='codeforces'||$ojname[$i]=='bestcoder'){
                      echo "&nbsp&nbsp&nbsp<a href='".$problemurl[$i].$recent[$i][$j+1]."''>".$recent[$i][$j]."</a> ";
-                     $j++;
+                     $j++;   //第奇数个元素为比赛名，偶数个元素为比赛的url编号
                 }else{
                      echo "&nbsp&nbsp&nbsp<a href='".$problemurl[$i].$recent[$i][$j]."''>".$recent[$i][$j]."</a> ";
                  }

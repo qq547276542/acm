@@ -6,14 +6,14 @@ import urllib
 import MySQLdb
 from config import*
 #获取poj网页     
-def getHtml_cf(url):  
+def getHtml_codeforces(url):  
     page = urllib.urlopen(url)  
     html = page.read()  
     return html  
 
 #获取poj中用户信息  
 def zhenghe_codeforces(str1,userid,imgre):  
-    html =getHtml_cf( str1+ userid) 
+    html =getHtml_codeforces( str1+ userid) 
     return re.findall(imgre,html)  
 
 def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的前缀url
@@ -44,10 +44,10 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
       for row in results:
           ojname_list.append(row[0])
     except:
-  	print "Error: unable to fecth data"
+      print "Error: unable to fecth data"
 
 	# 关闭数据库连接
-	db.close()
+    db.close()
 
     alist = []  #定义一个列表  
     for line in ojname_list:  #每一行为一个用户名，分别分析

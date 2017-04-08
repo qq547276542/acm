@@ -18,7 +18,7 @@
             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
           </ol>
 
-          <!-- Wrapper for slides -->
+          <!--添加项来修改主页展示照片-->
           <div class="carousel-inner" role="listbox">
             <div class="item active">
               <img src="picture/IMG_2653.JPG" alt="aaa">
@@ -44,7 +44,7 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
-
+        <!--主页文本在此输入-->
         <div  id="introduce">
           <h3>什么是ACM?</h3>
           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACM国际大学生程序设计竞赛（英文全称：ACM International Collegiate Programming Contest（简称ACM-ICPC或ICPC））是由美国计算机协会（ACM）主办的，一项旨在展示大学生创新能力、团队精神和在压力下编写程序、分析和解决问题能力的年度竞赛。经过近40年的发展，ACM国际大学生程序设计竞赛已经发展成为全球最具影响力的大学生程序设计竞赛。赛事目前由IBM公司赞助。
@@ -80,6 +80,7 @@
           <div class="col-md-4 col-md-offset-4"><h4>系统公告</h4></div>
         </div>
       </div>
+      <!--系统公告在此输入-->
       <div class="panel-body">
         大家好好刷题好好刷题 ...<br/>
         大家好好刷题好好刷题 ...<br/>
