@@ -16,4 +16,7 @@ ALTER DATABASE 'db_name' DEFAULT CHARACTER SET utf8
 链接mysql和python，需要下载安装mysql-python
 安装方法：http://blog.csdn.net/qq547276542/article/details/68947119  （或者上网搜）
 
+爬虫只需要在linux服务器中添加个定时执行python的计划任务
+python  /...项目路径../python/refresh_info.py     
+
 
