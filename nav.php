@@ -13,9 +13,8 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li ><a href="index.php">主页</a></li>
-        <li ><a href="#">队员排名</a></li>
-        <li ><a href="#">组队信息</a></li>
-        <li ><a href="#">Oj传送门</a></li>
+        <li ><a href="rank_board.php">刷题积分</a></li>
+        <li ><a href="oj_link_page.php">Oj传送门</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -44,7 +43,7 @@
    if(login_user!=""){
       document.getElementById("login_button").innerHTML="";
       document.getElementById("sign_up_button").innerHTML="";
-      document.getElementById("logout_button").innerHTML="退出登录";
+      document.getElementById("logout_button").innerHTML="<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span>退出登录";
       document.getElementById("user_menu").innerHTML="<span class='glyphicon glyphicon-user' aria-hidden='true'></span>&nbsp"+login_user+"<span class='caret'></span>";
       $("#user_menu").show();
       $("#logout_button").show();

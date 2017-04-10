@@ -1,0 +1,19 @@
+配置注意---------------
+PHP7   Version:7.0.15
+python2  (不能使用python3)
+数据库mysql  Version:5.7.17   
+服务器 apache2  Version:2.4.18
+
+用户名upcacm   密码upcacm  数据库acmdb
+
+如需修改用户名，密码，数据库的配置，请修改：config/database.php  python/config.py 
+
+设置项目所在文件夹的权限为777： chmod -R 777 项目目录
+
+导入sql前，先强制修改数据库的默认字符集为utf8（如果数据库已经配置过就不用管了）
+ALTER DATABASE 'db_name' DEFAULT CHARACTER SET utf8
+
+链接mysql和python，需要下载安装mysql-python
+安装方法：http://blog.csdn.net/qq547276542/article/details/68947119  （或者上网搜）
+
+

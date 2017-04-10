@@ -1,8 +1,34 @@
 <!DOCTYPE HTML>
 <html lang="zh-CN">
 <?php include 'headfile.php';?>
+<?php include 'config/database.php';
+include 'tool/tool.php'
+?>
 <body>
   <?php include 'nav.php';?>
+  <?php 
+    // 创建连接
+  $conn = get_connect();
+    // 检测连接
+  if ($conn->connect_error) {
+    die("连接失败: " . $conn->connect_error);
+  }
+  $username=$score=null;
+  $sql = "SELECT username,score FROM person ORDER BY score DESC";
+  $conn->query("set names utf8");
+  $result = $conn->query($sql);
+  $len=0;
+  if ($result->num_rows > 0) {
+    // 输出每行数据
+    while($row = $result->fetch_assoc()) {
+      $username[$len]=$row["username"];$score[$len]=$row["score"];
+      $len++;
+    }
+  } else {
+    
+  }
+  $conn->close();
+  ?>
   <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-7"> 
@@ -96,65 +122,19 @@
      <div class="panel-body">
       <table class="table table-bordered table-striped">
         <tr>
-          <td>#</td>
+          <td>rank</td>
           <td>队员</td>
           <td>积分</td>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>aaa</td>
-          <td>2000</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>bbb</td>
-          <td>1999</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>bbb</td>
-          <td>1999</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>dsa</td>
-          <td>1888</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>fewf</td>
-          <td>1759</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>rbevbr</td>
-          <td>1650</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>gtjy</td>
-          <td>1590</td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>gegew</td>
-          <td>1520</td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>wwqw</td>
-          <td>1500</td>
-        </tr>
-        <tr>
-          <td>9</td>
-          <td>vdsaw</td>
-          <td>1450</td>
-        </tr>
-        <tr>
-          <td>10</td>
-          <td>bexx</td>
-          <td>1300</td>
-        </tr>
+        <?php 
+             for($i=0;$i<$len&&$i<10;$i++){
+               echo "<tr>";
+               echo "<td> ".strval($i+1)."</td>";
+               echo "<td> ".strval($username[$i])."</td>";
+               echo "<td> ".strval($score[$i])."</td>";
+               echo "</tr>";
+             }
+           ?>
       </table>
 
     </div>

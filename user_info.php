@@ -91,7 +91,7 @@ $conn->close();
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
      <div class="panel panel-default">
-        <div class="panel-heading"><div class="text-info"> 做题情况 </div></div>
+        <div class="panel-heading"><div class="text-info"> 做题情况（每10分钟刷新） </div></div>
         <div class="panel-body">
            <table class="table table-bordered table-striped">
               <tr>
