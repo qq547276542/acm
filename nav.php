@@ -15,9 +15,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ><a href="index.php">主页</a></li>
-        <li ><a href="rank_board.php">刷题积分</a></li>
-        <li ><a href="oj_link_page.php">Oj传送门</a></li>
+        <li ><a href="index.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp主页</a></li>
+        <li ><a href="rank_board.php"><span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>&nbsp刷题积分</a></li>
+        <li ><a href="oj_link_page.php"><span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbspOj传送门</a></li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -25,8 +25,8 @@
           <li><a href="sign_up.php" id="sign_up_button"></a></li>
           <li><a href="#" id="user_menu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a> 
            <ul class="dropdown-menu">
-            <li><a href="user_info.php" id="user_info_button">个人信息</a></li>
-            <li><a href="edit_user_info.php" id="edit_user_info_button">编辑信息</a></li>
+            <li><a href="user_info.php" id="user_info_button"><span class="glyphicon glyphicon-stats" aria-hidden="true">&nbsp个人信息</a></li>
+            <li><a href="edit_user_info.php" id="edit_user_info_button"> <span class="glyphicon glyphicon-edit" aria-hidden="true">&nbsp编辑资料</a></li>
            </ul>
           </li>
           <li><a href="logout.php" id="logout_button"></a></li>

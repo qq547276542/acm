@@ -131,6 +131,6 @@ def output_bestcoder(result_bestcoder):  #result_xoj: xoj用户数据界面的�
 
 result_bestcoder = "http://bestcoder.hdu.edu.cn/recentContests.php?user="  
    
-print "正在生成数据......"  
-output_bestcoder(result_bestcoder)
-print "数据抓取完毕！"
+#print "正在生成数据......"  
+#output_bestcoder(result_bestcoder)
+#print "数据抓取完毕！"

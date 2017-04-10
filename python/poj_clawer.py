@@ -110,6 +110,6 @@ def output_poj(result_poj):  #result_xoj: xoj用户数据界面的前缀url
 
 result_poj = "http://poj.org/userstatus?user_id="  
 
-print "正在生成数据......"  
-output_poj(result_poj)
-print "数据抓取完毕！"
+#print "正在生成数据......"  
+#output_poj(result_poj)
+#print "数据抓取完毕！"

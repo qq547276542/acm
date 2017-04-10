@@ -131,6 +131,6 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
 
 result_codeforces = "http://codeforces.com/contests/with/"  
    
-print "正在生成数据......"  
-output_codeforces(result_codeforces)
-print "数据抓取完毕！"
+#print "正在生成数据......"  
+#output_codeforces(result_codeforces)
+#print "数据抓取完毕！"
