@@ -93,6 +93,8 @@ $conn->close();
      <div class="panel panel-default">
         <div class="panel-heading"><div class="text-info"> 做题情况（每10分钟刷新） </div></div>
         <div class="panel-body">
+        <div id="line_graph" ></div>
+        <div  >&nbsp</div>
            <table class="table table-bordered table-striped">
               <tr>
                 <td width="12%"><h4>OJ</h4></td>
@@ -156,4 +158,66 @@ function setCookie(cname,cvalue){
     document.cookie = cname + "=" + cvalue + "; " + expires+"; path=/";
 }
 
+$(document).ready(function() {
+   var title = {
+      text: '近期刷题曲线'   
+   };
+   var subtitle = {
+      text: 'Source: python crawler'
+   };
+   var xAxis = {
+      categories: ['2017/5/1','2017/5/2','2017/5/3','2017/5/4','2017/5/5','2017/5/6','2017/5/7','2017/5/8','2017/5/9','2017/5/10','2017/5/11','2017/5/12','2017/5/13','2017/5/14']
+   };
+   var yAxis = {
+      title: {
+         text: ''
+      },
+      plotLines: [{
+         value: 0,
+         width: 1,
+         color: '#808080'
+      }]
+   };   
+
+   var tooltip = {
+      valueSuffix: '分'
+   }
+
+   var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+   };
+
+   var series =  [
+      {
+         name: '做题积分',
+         data: [{name: '做题情况：  poj:50题 hdu:80题 codeforces20场 codeforces100场 ',y: 1900},{name: '做题情况：\npoj:50题\nhdu:80题\ncodeforces500\n',y: 1950},{name: '做题情况：\npoj:50题\nhdu:80题\ncodeforces500\n',y: 2000},{name: '做题情况：\npoj:50题\nhdu:80题\ncodeforces500\n',y: 2100},{name: '做题情况：\npoj:50题\nhdu:80题\ncodeforces500\n',y: 2200}]
+      }
+   ];
+
+   var credits = {
+      enabled: 'false'
+   }
+
+   var chart= {
+      borderWidth: 0,
+      defaultSeriesType: 'line'
+   }
+
+   var json = {};
+
+   json.title = title;
+   json.subtitle = subtitle;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;
+   json.tooltip = tooltip;
+   json.legend = legend;
+   json.series = series;
+   json.credits = credits;
+   json.chart = chart;
+
+   $('#line_graph').highcharts(json);
+});
 </script>  
