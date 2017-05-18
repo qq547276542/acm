@@ -94,6 +94,7 @@ $conn->close();
         <div class="panel-heading"><div class="text-info"> 做题情况（每10分钟刷新） </div></div>
         <div class="panel-body">
         <div id="line_graph" ></div>
+        <div id="bar_graph"></div>
         <div  >&nbsp</div>
            <table class="table table-bordered table-striped">
               <tr>
@@ -198,7 +199,7 @@ $(document).ready(function() {
    ];
 
    var credits = {
-      enabled: 'false'
+      enabled: 'false',
    }
 
    var chart= {
@@ -219,5 +220,77 @@ $(document).ready(function() {
    json.chart = chart;
 
    $('#line_graph').highcharts(json);
+});
+
+$(document).ready(function() {  
+   var chart = {
+      type: 'bar'
+   };
+   var title = {
+      text: '能力分析'   
+   };
+   var subtitle = {
+      text: 'Source: DIY'  
+   };
+   var xAxis = {
+      categories: ['数据结构', '数学', '动态规划', '图论', '计算几何', '模拟'],
+      title: {
+         text: null
+      }
+   };
+   var yAxis = {
+      min: 0,
+      title: {
+         text: 'Population (millions)',
+         align: 'high'
+      },
+      labels: {
+         overflow: 'justify'
+      }
+   };
+   var tooltip = {
+      valueSuffix: ' millions'
+   };
+   var plotOptions = {
+      bar: {
+         dataLabels: {
+            enabled: true
+         }
+      }
+   };
+   var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'top',
+      x: -40,
+      y: 100,
+      floating: true,
+      borderWidth: 1,
+      backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+      shadow: true
+   };
+   var credits = {
+      enabled: false
+   };
+   
+   var series= [{
+         name: '能力值',
+            data: [107, 31, 135, 203, 80,66]
+        }
+   ];     
+      
+   var json = {};   
+   json.chart = chart; 
+   json.title = title;   
+   json.subtitle = subtitle; 
+   json.tooltip = tooltip;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;  
+   json.series = series;
+   json.plotOptions = plotOptions;
+   json.legend = legend;
+   json.credits = credits;
+   $('#bar_graph').highcharts(json);
+  
 });
 </script>  
