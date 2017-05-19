@@ -44,7 +44,47 @@ if ($result->num_rows > 0) {
       $recent[$len]=explode(" ", $recent[$len]);   //分解成数组
       $len=$len+1;
   }
-} else {
+} 
+
+//获取用户积分曲线
+$date=$score_list=null;
+$sql = "SELECT date,score FROM score_record WHERE username='".$_COOKIE['login_user']."' ORDER BY date " ;
+$conn->query("set names utf8");
+$result = $conn->query($sql);
+$score_len=0;
+if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()) {
+      $date[$score_len]=$row["date"];$score_list[$score_len]=$row["score"];
+      $score_len=$score_len+1;
+    }
+}
+
+//获取全平台平均曲线
+$aver_date=$aver_score_list=null;
+$sql = "SELECT date,score FROM score_record  ORDER BY date" ;
+$conn->query("set names utf8");
+$result = $conn->query($sql);
+$aver_score_len=0;
+if($result->num_rows > 0){
+    $sum_score=0;$cur_date='---';$cur_num=0;
+    while($row = $result->fetch_assoc()) {
+      if($cur_date!=$row["date"]){
+        if($cur_num>0){
+          $aver_score_list[$aver_score_len]=intval($sum_score/$cur_num);
+          $aver_date[$aver_score_len]=$cur_date;
+          $aver_score_len++;
+        }
+        $sum_score=0;
+        $cur_num=0;
+        $cur_date=$row["date"];
+      }
+      $sum_score=$sum_score+$row["score"];
+      $cur_num++;
+    }
+    if($cur_num>0)
+          $aver_score_list[$aver_score_len]=intval($sum_score/$cur_num);
+    $aver_date[$aver_score_len]=$cur_date;
+    $aver_score_len++;
 }
 
 $conn->close();
@@ -91,8 +131,11 @@ $conn->close();
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
      <div class="panel panel-default">
-        <div class="panel-heading"><div class="text-info"> 做题情况（每10分钟刷新） </div></div>
+        <div class="panel-heading"><div class="text-info"> 做题情况（每天刷新） </div></div>
         <div class="panel-body">
+        <div id="line_graph" ></div>
+        <div id="bar_graph"></div>
+        <div  >&nbsp</div>
            <table class="table table-bordered table-striped">
               <tr>
                 <td width="10%"><h4>OJ</h4></td>
@@ -184,4 +227,176 @@ function delete_item(i){  //ajax 传递参数
     xmlhttp.open("GET","form_check/delete_ojusername_check.php?index="+i,true);
     xmlhttp.send();
 }
+
+$(document).ready(function() {
+     var title = {
+      text: '近期刷题曲线'   
+    };
+    var subtitle = {
+      text: 'Source: python crawler'
+    };
+    var xAxis = {
+      categories: [<?php 
+     $end=$aver_score_len;
+     if($end>12) $end=12;
+     for($i=0;$i<$end;$i++){
+        echo "'".$aver_date[$i]."'";
+        if($i+1!=$end)
+          echo ",";
+     }
+   ?>]
+    };
+    var yAxis = {
+      title: {
+       text: 'score'
+     },
+     plotLines: [{
+       value: 0,
+       width: 1,
+       color: '#808080'
+     }]
+   };   
+
+   var tooltip = {
+    valueSuffix: ' 分'
+  }
+
+  var legend = {
+    layout: 'vertical',
+    align: 'right',
+    verticalAlign: 'middle',
+    borderWidth: 0
+  };
+
+  var series =  [
+  {
+   name: <?php echo "'".$_COOKIE['login_user']."'" ?>,
+   data: [<?php 
+     $end=$aver_score_len;
+     if($end>12) $end=12;
+     $cur_s=0;
+     $point=0;
+     for($i=0;$i<$end;$i++){
+        if($date[$point]==$aver_date[$i]){
+            $cur_s=$score_list[$point];
+            $point++;
+        }
+        echo $cur_s;
+        if($i+1!=$end)
+          echo ",";
+     }
+   ?>],
+   color: '#058DC7'
+ }
+ ,
+ {
+   name: '实验室平均值',
+   data: [<?php 
+     $end=$aver_score_len;
+     if($end>12) $end=12;
+     for($i=0;$i<$end;$i++){
+        echo $aver_score_list[$i];
+        if($i+1!=$end)
+          echo ",";
+     }
+   ?>],
+   color: '#50B432'
+ }
+ ];
+
+ var credits = {
+  enabled: 'false',
+}
+
+var chart= {
+  borderWidth: 0,
+  defaultSeriesType: 'line'
+}
+
+var json = {};
+
+json.title = title;
+json.subtitle = subtitle;
+json.xAxis = xAxis;
+json.yAxis = yAxis;
+json.tooltip = tooltip;
+json.legend = legend;
+json.series = series;
+json.credits = credits;
+json.chart = chart;
+
+$('#line_graph').highcharts(json);
+});
+
+    $(document).ready(function() {  
+     var chart = {
+      type: 'bar'
+    };
+    var title = {
+      text: '能力分析'   
+    };
+    var subtitle = {
+      text: 'Source: DIY'  
+    };
+    var xAxis = {
+      categories: ['数据结构', '数学', '动态规划', '图论', '计算几何', '模拟'],
+      title: {
+       text: null
+     }
+   };
+   var yAxis = {
+    min: 0,
+    title: {
+     text: ' ',
+     align: 'high'
+   }, 
+   labels: {
+     overflow: 'justify'
+   }
+ };
+ var tooltip = {
+  valueSuffix: ' '
+};
+var plotOptions = {
+  bar: {
+   dataLabels: {
+    enabled: true
+  }
+}
+};
+var legend = {
+  layout: 'vertical',
+  align: 'right',
+  verticalAlign: 'top',
+  x: -40,
+  y: 100,
+  floating: true,
+  borderWidth: 1,
+  backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+  shadow: true
+};
+var credits = {
+  enabled: false
+};
+
+var series= [{
+ name: '能力值',
+ data: [10, 2, 5, 2, 8,1]
+}
+];     
+
+var json = {};   
+json.chart = chart; 
+json.title = title;   
+json.subtitle = subtitle; 
+json.tooltip = tooltip;
+json.xAxis = xAxis;
+json.yAxis = yAxis;  
+json.series = series;
+json.plotOptions = plotOptions;
+json.legend = legend;
+json.credits = credits;
+$('#bar_graph').highcharts(json);
+
+});
 </script>  

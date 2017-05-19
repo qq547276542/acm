@@ -10,6 +10,7 @@ from poj_clawer import*
 from hdu_clawer import*
 from codeforces_clawer import*
 from bestcoder_clawer import*
+import time
 	
 def do_clawer():   
 	output_poj(result_poj)
@@ -68,8 +69,11 @@ def cal_score():
 			print "Error: unable to fecth data"
 		score_list[i]=int(score_list[i])
 
+	now_date = str(time.strftime("%Y-%m-%d"))
 	for i in range(len(username_list)):
-		sql = "UPDATE person SET score="+str(score_list[i])+"  WHERE username='"+str(username_list[i])+"'"
+		score = str(score_list[i])
+		username = str(username_list[i])
+		sql = "UPDATE person SET score="+score+"  WHERE username='"+username+"'"
 		#print sql
 		try:
 			 # 执行sql语句
@@ -81,6 +85,30 @@ def cal_score():
 			print "sql error"
 			db.rollback()	
 
+		flag = 0
+		sql = "INSERT INTO score_record VALUES ('"+username+"', '"+now_date+"', "+score+")"
+		try:
+			 # 执行sql语句
+			cursor.execute(sql)
+			# 提交到数据库执行
+			db.commit()
+		except:
+			# Rollback in case there is any error
+			#print "sql error"
+			db.rollback()	
+			flag = 1
+
+		if flag == 1 : #如果今天已经插入过score，则执行update
+			sql = "UPDATE score_record SET score="+score+" WHERE username='"+username+"' AND date='"+now_date+"'"
+			try:
+				 # 执行sql语句
+				cursor.execute(sql)
+				# 提交到数据库执行
+				db.commit()
+			except:
+				# Rollback in case there is any error
+				print "sql error"
+				db.rollback()	
 
 	# 关闭数据库连接
 	db.close()
