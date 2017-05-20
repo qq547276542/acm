@@ -137,8 +137,9 @@ $conn->close();
         <div class="panel-heading"><div class="text-info"> 做题情况（每天刷新） </div></div>
         <div class="panel-body">
         <div id="line_graph" ></div>
-        <div id="bar_graph"></div>
         <div  >&nbsp</div>
+        <div id="bar_graph"></div>
+        <div  >&nbsp</div><div>&nbsp</div>
            <table class="table table-bordered table-striped">
               <tr>
                 <td width="10%"><h4>OJ</h4></td>
@@ -397,7 +398,13 @@ var credits = {
 
 var series= [{
  name: '能力值',
- data: [10, 2, 5, 2, 8,1]
+ data: [<?php
+     for($i=0;$i<6;$i++){
+        echo $power_list[$i];
+        if($i<5)
+          echo ",";
+     }
+ ?>]
 }
 ];     
 

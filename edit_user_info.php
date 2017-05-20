@@ -41,7 +41,7 @@ include 'tool/tool.php'
        <div class="panel-heading">
         <div class="text-info">修改个人信息</div></div>
         <div class="panel-body">
-          <form  action="form_check/edit_user_info_check.php" enctype="multipart/form-data" method="post" enctype="multipart/form-data">
+          <form  action="form_check/edit_user_info_check.php" id="edit_user_info_form" enctype="multipart/form-data" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label for="password">当前密码<nobr class="text-danger">&nbsp*</nobr></label>
               <input type="password" class="form-control" id="password" name="password">
@@ -89,7 +89,7 @@ include 'tool/tool.php'
               <label for="blog" class="control-label">blog</label>
               <input  class="form-control" id="blog" name="blog" value=<?php echo "'".$blog."'"?>>
             </div>
-            <h4>分配能力值(总和不能超过20)</h4>
+            <h4>分配能力值(单项取值0-9)</h4>
              <div class="panel panel-default">
              <div class="panel-body">
             <div class="form-group">
@@ -165,8 +165,115 @@ function setCookie(cname,cvalue){
    document.getElementById("Tshirtsize").value=<?php echo "'".$Tshirtsize."'"?>; 
  });
 
-  $(document).ready(function(){ 
+  
+   $('#edit_user_info_form').bootstrapValidator({
+//        live: 'disabled',
+message: 'This value is not valid',
+feedbackIcons: {
+  valid: 'glyphicon glyphicon-ok',
+  invalid: 'glyphicon glyphicon-remove',
+  validating: 'glyphicon glyphicon-refresh'
+},
+fields: {
+  
+  email: {
+    validators: {
+      emailAddress: {
+        message: '该email格式不合法!'
+      },notEmpty: {
+        message: '邮箱不能为空!'
+      }
+    }
+  },
+  power_ds: {
+    validators: {
+      regexp: {
+        regexp: /^[0-9]+$/,
+        message: '能力值只能是数字!'
+      },
+      stringLength: {
+        min: 0,
+        max: 1,
+        message: '单项能力值不能超过9!'
+      }
+    }
+  },
+  power_math: {
+    validators: {
+      regexp: {
+        regexp: /^[0-9]+$/,
+        message: '能力值只能是数字!'
+      },
+      stringLength: {
+        min: 0,
+        max: 1,
+        message: '单项能力值不能超过9!'
+      }
+    }
+  },
+  power_dp: {
+    validators: {
+      regexp: {
+        regexp: /^[0-9]+$/,
+        message: '能力值只能是数字!'
+      },
+      stringLength: {
+        min: 0,
+        max: 1,
+        message: '单项能力值不能超过9!'
+      }
+    }
+  },
+  power_graph: {
+    validators: {
+      regexp: {
+        regexp: /^[0-9]+$/,
+        message: '能力值只能是数字!'
+      },
+      stringLength: {
+        min: 0,
+        max: 1,
+        message: '单项能力值不能超过9!'
+      }
+    }
+  },
+  power_cal: {
+    validators: {
+      regexp: {
+        regexp: /^[0-9]+$/,
+        message: '能力值只能是数字!'
+      },
+      stringLength: {
+        min: 0,
+        max: 1,
+        message: '单项能力值不能超过9!'
+      }
+    }
+  },
+  power_mn: {
+    validators: {
+      regexp: {
+        regexp: /^[0-9]+$/,
+        message: '能力值只能是数字!'
+      },
+      stringLength: {
+        min: 0,
+        max: 1,
+        message: '单项能力值不能超过9!'
+      }
+    }
+  }
+  
+}
+});
 
-  });
+    // Validate the form manually
+    $('#validateBtn').click(function() {
+      $('#sign_up_form').bootstrapValidator('validate');
+    });
+
+    $('#resetBtn').click(function() {
+      $('#sign_up_form').data('bootstrapValidator').resetForm(true);
+    });
 
 </script>

@@ -17,9 +17,9 @@
       {
          die("connect failed: " . $conn->connect_error);
       }
-      $sql="INSERT INTO person (username, password, email,usertype,avatar)
+      $sql="INSERT INTO person (username, password, email,usertype,avatar,power_num,power_ds,power_math,power_dp,power_graph,power_cal,power_mn)
       VALUES
-      ('$username','$password','$email','正式队员','init_avatar.jpg')";
+      ('$username','$password','$email','正式队员','init_avatar.jpg',10,1,1,1,1,1,1)";
       $conn->query("set names utf8");
       if ($conn->query($sql) === TRUE)
         {

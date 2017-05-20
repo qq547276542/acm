@@ -15,7 +15,7 @@ include 'tool/tool.php'
   }
   $username=$usertype=$email=$score=$teamname="";
   $lastdate=$name=$gender=$Tshirtsize=$major=$tel=$blog=$avatar;
-  $sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog,avatar FROM person WHERE username='".$_GET['username']."'";
+  $sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog,avatar,power_num,power_ds,power_math,power_dp,power_graph,power_cal,power_mn FROM person WHERE username='".$_GET['username']."'";
   $conn->query("set names utf8");
   $result = $conn->query($sql);
   if ($result->num_rows > 0) {
@@ -25,6 +25,8 @@ include 'tool/tool.php'
       $score=$row["score"];$teamname=$row["teamname"];$lastdate=$row["lastdate"];
       $name=$row["name"];$gender=$row["gender"];$Tshirtsize=$row["Tshirtsize"];
       $major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];$avatar=$row["avatar"];
+      $power_num=$row["power_num"];$power_list[0]=$row["power_ds"];$power_list[1]=$row["power_math"];$power_list[2]=$row["power_dp"];
+      $power_list[3]=$row["power_graph"];$power_list[4]=$row["power_cal"];$power_list[5]=$row["power_mn"];
     }
   } else {
 
@@ -135,8 +137,9 @@ include 'tool/tool.php'
     <div class="panel-heading"><div class="text-info"> 做题情况（每天刷新） </div></div>
     <div class="panel-body">
       <div id="line_graph" ></div>
-      <div id="bar_graph"></div>
       <div  >&nbsp</div>
+        <div id="bar_graph"></div>
+        <div  >&nbsp</div><div>&nbsp</div>
       <table class="table table-bordered table-striped">
         <tr>
           <td width="12%"><h4>OJ</h4></td>
@@ -366,7 +369,13 @@ var credits = {
 
 var series= [{
  name: '能力值',
- data: [10, 2, 5, 2, 8,1]
+ data: [<?php
+     for($i=0;$i<6;$i++){
+        echo $power_list[$i];
+        if($i<5)
+          echo ",";
+     }
+ ?>]
 }
 ];     
 
