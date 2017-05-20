@@ -210,8 +210,10 @@ include 'tool/tool.php'
     var xAxis = {
       categories: [<?php 
      $end=$aver_score_len;
-     if($end>12) $end=12;
-     for($i=0;$i<$end;$i++){
+     $begin=$end-12;
+     if($begin<0)
+      $begin=0;
+     for($i=$begin;$i<$end;$i++){
         echo "'".$aver_date[$i]."'";
         if($i+1!=$end)
           echo ",";
@@ -245,10 +247,19 @@ include 'tool/tool.php'
    name: <?php echo "'".$_GET['username']."'" ?>,
    data: [<?php 
      $end=$aver_score_len;
-     if($end>12) $end=12;
+     $begin=$end-12;
+     if($begin<0)
+      $begin=0;
      $cur_s=0;
      $point=0;
-     for($i=0;$i<$end;$i++){
+     while($date[$point]!=$aver_date[$begin]){
+      $point++;
+      if($point>=$aver_score_len)
+        break;
+     }
+     if($point==$aver_score_len)
+      $point=0;
+     for($i=$begin;$i<$end;$i++){
         if($date[$point]==$aver_date[$i]){
             $cur_s=$score_list[$point];
             $point++;
@@ -265,8 +276,10 @@ include 'tool/tool.php'
    name: '实验室平均值',
    data: [<?php 
      $end=$aver_score_len;
-     if($end>12) $end=12;
-     for($i=0;$i<$end;$i++){
+     $begin=$end-12;
+     if($begin<0)
+      $begin=0;
+     for($i=$begin;$i<$end;$i++){
         echo $aver_score_list[$i];
         if($i+1!=$end)
           echo ",";

@@ -15,7 +15,8 @@ include 'tool/tool.php'
 }
 $username=$usertype=$email=$score=$teamname="";
 $lastdate=$name=$gender=$Tshirtsize=$major=$tel=$blog=$avatar;
-$sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog,avatar FROM person WHERE username='".$_COOKIE['login_user']."'";
+$power_list=null; $power_num=0;
+$sql = "SELECT username, usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog,avatar,power_num,power_ds,power_math,power_dp,power_graph,power_cal,power_mn FROM person WHERE username='".$_COOKIE['login_user']."'";
 $conn->query("set names utf8");
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
@@ -25,6 +26,8 @@ if ($result->num_rows > 0) {
       $score=$row["score"];$teamname=$row["teamname"];$lastdate=$row["lastdate"];
       $name=$row["name"];$gender=$row["gender"];$Tshirtsize=$row["Tshirtsize"];
       $major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];$avatar=$row["avatar"];
+      $power_num=$row["power_num"];$power_list[0]=$row["power_ds"];$power_list[1]=$row["power_math"];$power_list[2]=$row["power_dp"];
+      $power_list[3]=$row["power_graph"];$power_list[4]=$row["power_cal"];$power_list[5]=$row["power_mn"];
   }
 } else {
 
@@ -238,8 +241,10 @@ $(document).ready(function() {
     var xAxis = {
       categories: [<?php 
      $end=$aver_score_len;
-     if($end>12) $end=12;
-     for($i=0;$i<$end;$i++){
+     $begin=$end-12;
+     if($begin<0)
+      $begin=0;
+     for($i=$begin;$i<$end;$i++){
         echo "'".$aver_date[$i]."'";
         if($i+1!=$end)
           echo ",";
@@ -273,10 +278,19 @@ $(document).ready(function() {
    name: <?php echo "'".$_COOKIE['login_user']."'" ?>,
    data: [<?php 
      $end=$aver_score_len;
-     if($end>12) $end=12;
+     $begin=$end-12;
+     if($begin<0)
+      $begin=0;
      $cur_s=0;
      $point=0;
-     for($i=0;$i<$end;$i++){
+     while($date[$point]!=$aver_date[$begin]){
+      $point++;
+      if($point>=$aver_score_len)
+        break;
+     }
+     if($point==$aver_score_len)
+      $point=0;
+     for($i=$begin;$i<$end;$i++){
         if($date[$point]==$aver_date[$i]){
             $cur_s=$score_list[$point];
             $point++;
@@ -293,8 +307,10 @@ $(document).ready(function() {
    name: '实验室平均值',
    data: [<?php 
      $end=$aver_score_len;
-     if($end>12) $end=12;
-     for($i=0;$i<$end;$i++){
+     $begin=$end-12;
+     if($begin<0)
+      $begin=0;
+     for($i=$begin;$i<$end;$i++){
         echo $aver_score_list[$i];
         if($i+1!=$end)
           echo ",";

@@ -26,6 +26,7 @@
             setcookie("update_info", "", time()+3600,'/');  //设置是否成功更新用户信息
 
             ///update  用户信息///////////////////////////
+            //power_num,power_ds,power_math,power_dp,power_graph,power_cal,power_mn
             $sql="UPDATE person SET ";
             $sql=$sql."email='".$_POST["email"];
             $sql=$sql."', name='".$_POST["name"];
@@ -34,6 +35,12 @@
             $sql=$sql."', major='".$_POST["major"];
             $sql=$sql."', tel='".$_POST["tel"];
             $sql=$sql."', blog='".$_POST["blog"];
+            $sql=$sql."', power_ds='".$_POST["power_ds"];
+            $sql=$sql."', power_math='".$_POST["power_math"];
+            $sql=$sql."', power_dp='".$_POST["power_dp"];
+            $sql=$sql."', power_graph='".$_POST["power_graph"];
+            $sql=$sql."', power_cal='".$_POST["power_cal"];
+            $sql=$sql."', power_mn='".$_POST["power_mn"];
             $sql=$sql."' WHERE username='".$_COOKIE['login_user']."'";
             $conn->query("set names utf8");
             $conn->query($sql);

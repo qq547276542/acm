@@ -15,7 +15,8 @@ include 'tool/tool.php'
   }
   $username=$password=$usertype=$email=$score=$teamname="";
   $lastdate=$name=$gender=$Tshirtsize=$studyyear=$major=$tel=$blog="";
-  $sql = "SELECT username, password,usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog FROM person WHERE username='".$_COOKIE['login_user']."'";
+  $power_list=null; $power_num=0;
+  $sql = "SELECT username, password,usertype,email,score,teamname,lastdate,name,gender,Tshirtsize,major,tel,blog,avatar,power_num,power_ds,power_math,power_dp,power_graph,power_cal,power_mn FROM person WHERE username='".$_COOKIE['login_user']."'";
   $conn->query("set names utf8");
   $result = $conn->query($sql);
 
@@ -26,6 +27,8 @@ include 'tool/tool.php'
       $score=$row["score"];$teamname=$row["teamname"];$lastdate=$row["lastdate"];
       $name=$row["name"];$gender=$row["gender"];$Tshirtsize=$row["Tshirtsize"];
       $major=$row["major"];$tel=$row["tel"];$blog=$row["blog"];
+      $power_num=$row["power_num"];$power_list[0]=$row["power_ds"];$power_list[1]=$row["power_math"];$power_list[2]=$row["power_dp"];
+      $power_list[3]=$row["power_graph"];$power_list[4]=$row["power_cal"];$power_list[5]=$row["power_mn"];
     }
   } else {
     echo $_COOKIE['login_user'];
@@ -86,6 +89,35 @@ include 'tool/tool.php'
               <label for="blog" class="control-label">blog</label>
               <input  class="form-control" id="blog" name="blog" value=<?php echo "'".$blog."'"?>>
             </div>
+            <h4>分配能力值(总和不能超过20)</h4>
+             <div class="panel panel-default">
+             <div class="panel-body">
+            <div class="form-group">
+              <label for="blog" class="control-label">数据结构</label>
+              <input class="form-control" id="power_ds" name="power_ds" value= <?php echo "'".$power_list[0]."'" ?> >
+            </div>
+            <div class="form-group">
+              <label for="blog" class="control-label">数学</label>
+              <input class="form-control" id="power_math" name="power_math" value= <?php echo "'".$power_list[1]."'" ?> >
+            </div>
+            <div class="form-group">
+              <label for="blog" class="control-label">动态规划</label>
+              <input class="form-control" id="power_dp" name="power_dp" value= <?php echo "'".$power_list[2]."'" ?> >
+            </div>
+            <div class="form-group">
+              <label for="blog" class="control-label">图论</label>
+              <input class="form-control" id="power_graph" name="power_graph" value= <?php echo "'".$power_list[3]."'" ?> >
+            </div>
+            <div class="form-group">
+              <label for="blog" class="control-label">计算几何</label>
+              <input class="form-control" id="power_cal" name="power_cal" value= <?php echo "'".$power_list[4]."'" ?> >
+            </div>
+            <div class="form-group">
+              <label for="blog" class="control-label">模拟</label>
+              <input class="form-control" id="power_mn" name="power_mn" value= <?php echo "'".$power_list[5]."'" ?> >
+            </div>
+            </div>
+            </div>
             <div class="row">
               <div class="col-md-9"></div>
               <div class="col-md-3">
@@ -132,5 +164,9 @@ function setCookie(cname,cvalue){
    document.getElementById("gender").value=<?php echo "'".$gender."'"?>;
    document.getElementById("Tshirtsize").value=<?php echo "'".$Tshirtsize."'"?>; 
  });
+
+  $(document).ready(function(){ 
+
+  });
 
 </script>
