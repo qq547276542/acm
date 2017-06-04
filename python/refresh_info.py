@@ -13,11 +13,22 @@ from bestcoder_clawer import*
 import time
 	
 def do_clawer():   
-	output_poj(result_poj)
-	output_hdu(result_hdu)
-	output_codeforces(result_codeforces)
-	output_bestcoder(result_bestcoder)
-	
+	try:
+		output_poj(result_poj)
+	except:
+		print "poj似乎连不上哦..."
+	try:
+		output_hdu(result_hdu)
+	except:
+		print "hdu似乎连不上哦..."
+	try:
+		output_codeforces(result_codeforces)
+	except:
+		print "cf似乎连不上哦..."
+	try:
+		output_bestcoder(result_bestcoder)
+	except:
+		print "bc似乎连不上哦..."
 	
 def cal_score():
 	username_list=[]  #用户名列表
