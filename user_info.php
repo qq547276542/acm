@@ -159,7 +159,7 @@ $conn->close();
              echo "  <td >".$ojusername[$i]."</td>";
              echo "  <td >".$rating[$i]."</td>";
              echo "  <td >".$sloved[$i]."</td>";
-             echo "  <td >";
+             echo "  <td style='word-break : break-all; '>";
              for($j=0;$j<count($recent[$i]);$j++){
                 if($ojname[$i]=='codeforces'||$ojname[$i]=='bestcoder'){
                      echo "&nbsp&nbsp&nbsp<a href='".$problemurl[$i].$recent[$i][$j+1]."''>".$recent[$i][$j]."</a> ";
