@@ -73,19 +73,33 @@ def cal_score():
             for row in results:
                 if row[0] == 'poj':
                     if(vis[0]==0):
-                        score_list[i]=score_list[i]+4*row[2]
+                        score_list[i]=score_list[i]+2*row[2]
                         vis[0]=1
                 elif row[0] == 'hdu':
                     if(vis[1]==0):
-                        score_list[i]=score_list[i]+3*row[2]
+                        score_list[i]=score_list[i]+2*row[2]
                         vis[1]=1
                 elif row[0] == 'codeforces':
                     if(vis[2]==0):
-                        score_list[i]=score_list[i]+30*row[2]
+                    	cursum=row[3]
+                    	if row[3]>1400:
+                    	    cursum+=row[3]-1400
+                    	if row[3]>1600:
+                    	    cursum+=row[3]-1600
+                    	if row[3]>1800:
+                    	    cursum+=row[3]-1800
+                    	if row[3]>2000:
+                    	    cursum+=row[3]-2000
+                        score_list[i]=score_list[i]+cursum
+                        score_list[i]=score_list[i]+6*row[2]
                         vis[2]=1
                 elif row[0] == 'bestcoder':
                     if(vis[3]==0):
-                        score_list[i]=score_list[i]+30*row[2]
+                        cursum=row[3]
+                    	if row[3]>1800:
+                    	    cursum+=row[3]-1800
+                        score_list[i]=score_list[i]+cursum
+                        score_list[i]=score_list[i]+6*row[2]
                         vis[3]=1
                 elif row[0] == 'upc':
                     if(vis[4]==0):
@@ -93,7 +107,7 @@ def cal_score():
                         vis[4]=1
                 elif row[0] == 'vj':
                     if(vis[5]==0):
-                        score_list[i]=score_list[i]+8*row[2]
+                        score_list[i]=score_list[i]+5*row[2]
                         vis[5]=1
         except Exception, e:
             #print  str(e)

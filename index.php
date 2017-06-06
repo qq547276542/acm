@@ -126,7 +126,7 @@ include 'tool/tool.php'
       <table class="table table-bordered table-striped">
         <tr>
           <td>rank</td>
-          <td>队员姓名</td>
+          <td>队员</td>
           <td>积分</td>
         </tr>
         <?php 
