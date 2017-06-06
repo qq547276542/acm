@@ -34,19 +34,19 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
     # 使用cursor()方法获取操作游标 
     cursor = db.cursor()
 
-	# SQL 查询语句 
+    # SQL 查询语句 
     sql = "SELECT distinct ojusername FROM clawer  WHERE  ojname='codeforces' " 
     try:
-  	  # 执行SQL语句
+        # 执行SQL语句
       cursor.execute(sql)
- 	  # 获取所有记录列表
+       # 获取所有记录列表
       results = cursor.fetchall()
       for row in results:
           ojname_list.append(row[0])
     except:
       print "Error: unable to fecth data"
 
-	# 关闭数据库连接
+    # 关闭数据库连接
     db.close()
 
     alist = []  #定义一个列表  
@@ -74,7 +74,7 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
             list_str=list_recentProblem[0]
             list_str=list_str+" "+list_recentID[0]
         else:
-        	list_str=""
+            list_str=""
         for i in range(1,len(list_recentProblem)):
             list_recentProblem[i]=list_recentProblem[i].replace(" ","_")  #用下划线代替空格
             list_str=list_str+" "+list_recentProblem[i]
@@ -84,49 +84,49 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
     print "---------------codeforces:-------------------"
     print "username       ojusername          Solved          recentProblem          rating"
     for i in range(len(alist)):
-    	print alist[i][0],
-    	print "       ",
-    	print alist[i][1],
-    	print "       ",
-    	print alist[i][2],
-    	print "       ",
-    	print alist[i][3]
+        print alist[i][0],
+        print "       ",
+        print alist[i][1],
+        print "       ",
+        print alist[i][2],
+        print "       ",
+        print alist[i][3]
         print "       ",
         print alist[i][4]
 
     # 打开数据库连接
-	db = connect_mysql()
+    db = connect_mysql()
 
-	# 使用cursor()方法获取操作游标 
-	cursor = db.cursor()
+    # 使用cursor()方法获取操作游标 
+    cursor = db.cursor()
     
-	for i in range(len(alist)):
-		# SQL 插入语句
-		#sql = """INSERT INTO clawer(username,
-   	   #   ojname, ojusername, sloved, recent, problemurl)
-   	   #   VALUES ("""+"'"+alist[i][0]+"', 'poj', '"+alist[i][1]+"', "+alist[i][2]+", '"+alist[i][3]+"','http://poj.org/problem?id=')"
-		#try:
-		  # 执行sql语句
- 		#  cursor.execute(sql)
- 		  # 提交到数据库执行
- 		#  db.commit()
-	#	except:
- 		  # Rollback in case there is any error
-	#	  db.rollback()	
-		sql = """UPDATE clawer SET
-			sloved= """+str(alist[i][2])+",recent='"+alist[i][3]+"',problemurl='http://codeforces.com/contest/',"+" rating='"+str(alist[i][4])+"""' 
+    for i in range(len(alist)):
+        # SQL 插入语句
+        #sql = """INSERT INTO clawer(username,
+          #   ojname, ojusername, sloved, recent, problemurl)
+          #   VALUES ("""+"'"+alist[i][0]+"', 'poj', '"+alist[i][1]+"', "+alist[i][2]+", '"+alist[i][3]+"','http://poj.org/problem?id=')"
+        #try:
+          # 执行sql语句
+         #  cursor.execute(sql)
+           # 提交到数据库执行
+         #  db.commit()
+    #    except:
+           # Rollback in case there is any error
+    #      db.rollback()    
+        sql = """UPDATE clawer SET
+            sloved= """+str(alist[i][2])+",recent='"+alist[i][3]+"',problemurl='http://codeforces.com/contest/',"+" rating='"+str(alist[i][4])+"""' 
             WHERE ojname='codeforces' AND ojusername='"""+alist[i][1]+"' "
-		try:
-			 # 执行sql语句
-			cursor.execute(sql)
-			# 提交到数据库执行
-			db.commit()
-		except:
-			# Rollback in case there is any error
-			print "sql error"
-			db.rollback()	
-		# 关闭数据库连接
-	db.close()
+        try:
+             # 执行sql语句
+            cursor.execute(sql)
+            # 提交到数据库执行
+            db.commit()
+        except:
+            # Rollback in case there is any error
+            print "sql error"
+            db.rollback()    
+        # 关闭数据库连接
+    db.close()
 
 
 result_codeforces = "http://codeforces.com/contests/with/"  

@@ -6,24 +6,23 @@ import urllib
 import MySQLdb
 from config import*
 #获取poj网页     
-def getHtml_hdu(url):  
+def getHtml_vj(url):  
     page = urllib.urlopen(url)  
-    html = page.read()  
+    html = page.read() 
     return html  
 
 #获取poj中用户信息  
-def zhenghe_hdu(str1,userid,imgre):  
-    html =getHtml_hdu( str1+ userid) 
+def zhenghe_vj(str1,userid,imgre):  
+    html =getHtml_vj( str1+ userid) 
     return re.findall(imgre,html)  
 
-def output_hdu(result_hdu):  #result_xoj: xoj用户数据界面的前缀url
+def output_vj(result_vj):  #result_xoj: xoj用户数据界面的前缀url
     # file_object = open("users.txt",'r')  
     ojname_list = [] #oj帐号列表
-   # reg_solved = '<tr><td width=15% align=left>Solved:</td>[\s\S]*?<td align=center width=25%><a href=.*?>(.+?)</a></td>' 
-    reg_solved = '<tr><td>Problems Solved</td><td align=center>(.+?)</td></tr>' 
+    reg_solved = 'title="Overall solved" target="_blank">(.+?)</a>'  
     imgre_solved = re.compile(reg_solved)  
 
-    reg_recentProblem = "p\((.+?),.+?,.+?\)"
+    reg_recentProblem = 'title="New solved in .+?" target="_blank">(.*?)</a>'
     imgre_recentProblem = re.compile(reg_recentProblem)
     
     db = connect_mysql()
@@ -31,7 +30,7 @@ def output_hdu(result_hdu):  #result_xoj: xoj用户数据界面的前缀url
     cursor = db.cursor()
 
     # SQL 查询语句
-    sql = "SELECT distinct ojusername FROM clawer  WHERE  ojname='hdu' " 
+    sql = "SELECT distinct ojusername FROM clawer  WHERE  ojname='vj' " 
     try:
         # 执行SQL语句
       cursor.execute(sql)
@@ -40,7 +39,7 @@ def output_hdu(result_hdu):  #result_xoj: xoj用户数据界面的前缀url
       for row in results:
           ojname_list.append(row[0])
     except:
-        print "Error: unable to fecth data"
+      print "Error: unable to fecth data"
 
     # 关闭数据库连接
     db.close()
@@ -48,22 +47,19 @@ def output_hdu(result_hdu):  #result_xoj: xoj用户数据界面的前缀url
     alist = []  #定义一个列表  
     for line in ojname_list:  #每一行为一个用户名，分别分析
         line=line.strip('\n')    #去掉读取的每行的"\n"  
-        list_solved = zhenghe_hdu(result_hdu,line,imgre_solved)   
+        list_solved = zhenghe_vj(result_vj,line,imgre_solved)   
         if len(list_solved) == 0:  #如果该用户页面不存在
             number_solved = 0  
         else:  
             number_solved = list_solved[0]
 
-        list_recentProblem= zhenghe_hdu(result_hdu,line,imgre_recentProblem)
-        if len(list_recentProblem)>1:
-            list_str=list_recentProblem[1]
-        else:
-            list_str=""
-        for i in range(2,len(list_recentProblem)):
-            list_str=list_str+" "+list_recentProblem[i]
+        list_recentProblem= zhenghe_vj(result_vj,line,imgre_recentProblem)
+        list_str="24hours_sloved: "+list_recentProblem[0]
+        list_str=list_str+" <br/> 7days_sloved: "+list_recentProblem[1]
+        list_str=list_str+" <br/> 30days_sloved: "+list_recentProblem[2]
         alist.append(['暂时没用',line,number_solved,list_str])  
     
-    print "---------------hdu:-------------------"
+    print "---------------vj:-------------------"
     print "username       ojusername          Solved          recentProblem"
     for i in range(len(alist)):
         print alist[i][0],
@@ -73,29 +69,17 @@ def output_hdu(result_hdu):  #result_xoj: xoj用户数据界面的前缀url
         print alist[i][2],
         print "       ",
         print alist[i][3]
-
+    
     # 打开数据库连接
     db = connect_mysql()
-
     # 使用cursor()方法获取操作游标 
     cursor = db.cursor()
     
     for i in range(len(alist)):
-        # SQL 插入语句
-        #sql = """INSERT INTO clawer(username,
-          #   ojname, ojusername, sloved, recent, problemurl)
-          #   VALUES ("""+"'"+alist[i][0]+"', 'poj', '"+alist[i][1]+"', "+alist[i][2]+", '"+alist[i][3]+"','http://poj.org/problem?id=')"
-        #try:
-          # 执行sql语句
-         #  cursor.execute(sql)
-           # 提交到数据库执行
-         #  db.commit()
-    #    except:
-           # Rollback in case there is any error
-    #      db.rollback()    
         sql = """UPDATE clawer SET
-            sloved= """+str(alist[i][2])+",recent='"+alist[i][3]+"""',problemurl='http://acm.hdu.edu.cn/showproblem.php?pid=' WHERE
-            ojname='hdu' AND ojusername='"""+alist[i][1]+"' "
+            sloved= """+str(alist[i][2])+",recent='"+alist[i][3]+"""',problemurl=' ' WHERE
+            ojname='vj' AND ojusername='"""+alist[i][1]+"' "
+        
         try:
              # 执行sql语句
             cursor.execute(sql)
@@ -107,10 +91,10 @@ def output_hdu(result_hdu):  #result_xoj: xoj用户数据界面的前缀url
             db.rollback()    
         # 关闭数据库连接
     db.close()
+    
 
+result_vj = "https://vjudge.net/user/"  
 
-result_hdu = "http://acm.hdu.edu.cn/userstatus.php?user="  
-   
 #print "正在生成数据......"  
-#output_hdu(result_hdu)
+#output_vj(result_vj)
 #print "数据抓取完毕！"

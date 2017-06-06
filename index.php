@@ -14,7 +14,7 @@ include 'tool/tool.php'
     die("连接失败: " . $conn->connect_error);
   }
   $username=$score=null;
-  $sql = "SELECT username,score FROM person ORDER BY score DESC";
+  $sql = "SELECT username,score,name FROM person ORDER BY score DESC";
   $conn->query("set names utf8");
   $result = $conn->query($sql);
   $len=0;
@@ -22,6 +22,9 @@ include 'tool/tool.php'
     // 输出每行数据
     while($row = $result->fetch_assoc()) {
       $username[$len]=$row["username"];$score[$len]=$row["score"];
+      $name[$len]=$row["name"];
+      if($name[$len]=="")
+        $name[$len]="---";
       $len++;
     }
   } else {
@@ -123,14 +126,14 @@ include 'tool/tool.php'
       <table class="table table-bordered table-striped">
         <tr>
           <td>rank</td>
-          <td>队员</td>
+          <td>队员姓名</td>
           <td>积分</td>
         </tr>
         <?php 
              for($i=0;$i<$len&&$i<10;$i++){
                echo "<tr>";
                echo "<td> ".strval($i+1)."</td>";
-               echo "<td> ".strval($username[$i])."</td>";
+               echo "<td> ".strval($name[$i])."</td>";
                echo "<td> ".strval($score[$i])."</td>";
                echo "</tr>";
              }

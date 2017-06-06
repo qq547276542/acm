@@ -14,7 +14,7 @@ include 'tool/tool.php'
     die("连接失败: " . $conn->connect_error);
   }
   $username=$score=$teamname=null;
-  $sql = "SELECT username,score,teamname FROM person ORDER BY score DESC";
+  $sql = "SELECT username,score,teamname,name FROM person ORDER BY score DESC";
   $conn->query("set names utf8");
   $result = $conn->query($sql);
   $len=0;
@@ -22,6 +22,9 @@ include 'tool/tool.php'
     // 输出每行数据
     while($row = $result->fetch_assoc()) {
       $username[$len]=$row["username"];$score[$len]=$row["score"];$teamname[$len]=$row["teamname"];
+      $name[$len]=$row["name"];
+      if($name[$len]=="")
+        $name[$len]="---";
       $len++;
     }
   } else {
@@ -42,7 +45,7 @@ include 'tool/tool.php'
            <tr class="info">
              <td width="10%"><p style="font-size: 18px;"  >rank</p></td>
              <td width="30%"><p style="font-size: 18px;"  >用户名</p></td>
-             <td width="30%"><p style="font-size: 18px;"  >队伍</p></td>
+             <td width="30%"><p style="font-size: 18px;"  >真实姓名</p></td>
              <td width="15%"><p style="font-size: 18px;"  >积分</p></td>
              <td width="15%"><p style="font-size: 18px;"  >查看详细信息</p> </td>
            </tr>
@@ -52,7 +55,7 @@ include 'tool/tool.php'
                echo "<tr>";
                echo "<td> <p style='font-size: 15px;' >".strval($i+1)."</p></td>";
                echo "<td> <p style='font-size: 15px;' >".strval($username[$i])."</p></td>";
-               echo "<td> <p style='font-size: 15px;' >".strval($teamname[$i])."</p></td>";
+               echo "<td> <p style='font-size: 15px;' >".strval($name[$i])."</p></td>";
                echo "<td> <p style='font-size: 15px;' >".strval($score[$i])."</p></td>";
                echo "<td><a type='submit'  class='btn btn-success btn-sm btn-block' href='other_user_info.php?username=".strval($username[$i])."'>See More..</a></td>";
                echo "</tr>";

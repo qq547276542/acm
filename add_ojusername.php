@@ -9,7 +9,9 @@
        <form role="form" id="login_form" action="form_check/add_ojusername_check.php" method="post">               
          <div class="form-group">
           <label for="choose_oj">选择一个oj</label>
-          <select  class="form-control" id="choose_oj" value='poj' name='choose_oj'>
+          <select  class="form-control" id="choose_oj" value='upc' name='choose_oj'>
+             <option>upc</option>
+             <option>vj</option>
              <option>poj</option>
              <option>hdu</option>
              <option>codeforces</option>
