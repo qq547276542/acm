@@ -7,7 +7,7 @@ import MySQLdb
 from config import*
 #获取poj网页     
 def getHtml_vj(url):  
-    page = urllib.urlopen(url)  
+    page = urllib.urlopen(url) 
     html = page.read() 
     return html  
 
