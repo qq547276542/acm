@@ -92,7 +92,7 @@ def output_bestcoder(result_bestcoder):  #result_xoj: xoj用户数据界面的�
         print "       ",
         print alist[i][3]
         print "       ",
-        print alist[i][4]
+        print "------"
 
     # 打开数据库连接
     db = connect_mysql()

@@ -38,7 +38,7 @@ include 'tool/tool.php'
      <div class="panel panel-default">
        <div class="panel-body">
          <div class="page-header">
-           <h1>Ranking List <small> </small></h1>
+           <h1>Ranking List &nbsp&nbsp<a href="#" data-toggle="modal" data-target="#explainScoreModal"><small>tips：如何计算积分?</small></a> </h1>
          </div>
 
          <table class="table table-hover table-bordered ">
@@ -69,6 +69,48 @@ include 'tool/tool.php'
 
    </div> 
  </div>
+
+ <div class="modal fade" id="explainScoreModal" tabindex="-1" role="dialog" aria-labelledby="explainScoreModalLabel" >
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="explainScoreModalLabel">积分计算方式</h4>
+      </div>
+      <div class="modal-body" id="login_form">
+      <p>
+       <strong>积分由cf和bc的rating以及所有oj的刷题数决定,具体计算方法如下:</strong><br/><br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp用户积分 = cf的rating + cf的rating超过1400的部分×1 + cf的rating超过1600的部分×3 + cf的rating超过1800的部分×5<br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp用户积分 += bc的rating + bc的rating超过1600的部分×1 + bc的rating超过1800的部分×4<br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp用户积分 += poj过题数×2 + hdu过题数×1.5 + cf正式赛过题数×6 + bc正式赛过题数×6 + upc过题数×1 + vj过题数×6<br/><br/><br/>
+
+       
+       <strong>为了防止用户积分差距过大，通过以下方法减小数据方差：</strong><br/><br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp计算所有用户的积分平均值<br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp用户积分 = 平均值 + (用户积分-平均值)×0.7<br/><br/><br/>
+
+       <strong>Tips:</strong><br/><br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp1. 若用户在同一oj添加了多个账号，只会统计过题数最多的那个账号<br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2. 统计的是题目ac数而不是submit数，对于cf和bc只统计正式赛ac数<br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp3. 刷题积分更新有延迟，由服务器每天定期更新<br/><br/><br/>
+       
+       <strong>oj缩写对应网址：</strong><br/><br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsppoj:&nbsp&nbsp&nbsp&nbsp<a href="http://poj.org">http://poj.org</a><br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsphdu:&nbsp&nbsp&nbsp&nbsp<a href="http://acm.hdu.edu.cn">http://acm.hdu.edu.cn</a><br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspcf:&nbsp&nbsp&nbsp&nbsp<a href="http://codeforces.com/">http://codeforces.com/</a><br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspbc:&nbsp&nbsp&nbsp&nbsp<a href="http://bestcoder.hdu.edu.cn/">http://bestcoder.hdu.edu.cn/</a><br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspupc:&nbsp&nbsp&nbsp&nbsp<a href="http://code.upc.edu.cn/">http://code.upc.edu.cn/</a><br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspvj:&nbsp&nbsp&nbsp&nbsp<a href="https://vjudge.net">https://vjudge.net</a><br/>
+       
+      </p>
+       <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">&nbsp我知道了&nbsp</button>
+       </div>
+    </div> 
+</div>
+</div>
+</div>
+
+
 </body>
 
 </html>

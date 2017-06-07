@@ -48,7 +48,7 @@ def cal_score():
     db = connect_mysql()
     # 使用cursor()方法获取操作游标 
     cursor = db.cursor()
-   
+    
     # SQL 查询语句 
     sql = "SELECT distinct username FROM clawer " 
     try:
@@ -62,9 +62,9 @@ def cal_score():
     except:
         print "Error: unable to fecth data~~"
     
-    
     for i in range(len(username_list)):
-        vis=[0,0,0,0,0,0] #对同一个oj进行判重
+        maxxSloved=[0,0,0,0,0,0] #对同一个oj记录最大值
+        maxxRating=[0,0,0,0,0,0] #对同一个oj记录最大值
         sql = "SELECT ojname,ojusername,sloved,rating FROM clawer WHERE username='"+str(username_list[i]) +"'"
         try:
             # 执行SQL语句
@@ -72,55 +72,61 @@ def cal_score():
            # 获取所有记录列表
             results = cursor.fetchall()
             for row in results:
-            	sloved=row[2]
-            	rating=row[3]
+                sloved=row[2]
+                rating=row[3]
                 if sloved == None:
                     sloved=0
                 if rating == None:
                     rating=0
+                curp=0
                 if row[0] == 'poj':
-                    if(vis[0]==0):
-                        score_list[i]=score_list[i]+3*sloved
-                        vis[0]=1
+                    curp=0
                 elif row[0] == 'hdu':
-                    if(vis[1]==0):
-                        score_list[i]=score_list[i]+2*sloved
-                        vis[1]=1
+                    curp=1
                 elif row[0] == 'codeforces':
-                    if(vis[2]==0):
-                        cursum=rating
-                        if rating>1400:
-                            cursum+=rating-1400
-                        if rating>1600:
-                            cursum+=rating-1600
-                        if rating>1800:
-                            cursum+=rating-1800
-                        if rating>2000:
-                            cursum+=rating-2000
-                        score_list[i]=score_list[i]+cursum
-                        score_list[i]=score_list[i]+6*sloved
-                        vis[2]=1
+                    curp=2
                 elif row[0] == 'bestcoder':
-                    if(vis[3]==0):
-                        cursum=rating
-                        if rating>1800:
-                            cursum+=rating-1800
-                        score_list[i]=score_list[i]+cursum
-                        score_list[i]=score_list[i]+6*sloved
-                        vis[3]=1
+                    curp=3
                 elif row[0] == 'upc':
-                    if(vis[4]==0):
-                        score_list[i]=score_list[i]+2*sloved
-                        vis[4]=1
+                    curp=4
                 elif row[0] == 'vj':
-                    if(vis[5]==0):
-                        score_list[i]=score_list[i]+8*sloved
-                        vis[5]=1
+                    curp=5
+                if sloved>maxxSloved[curp]:
+                    maxxSloved[curp]=sloved
+                if rating>maxxRating[curp]:
+                    maxxRating[curp]=rating
         except Exception, e:
             print  str(e)
             pass
-        score_list[i]=int(score_list[i])
 
+        score_list[i]=0
+        score_list[i]=2*maxxSloved[0]+1.5*maxxSloved[1]+6*maxxSloved[2]+6*maxxSloved[3]+1*maxxSloved[4]+6*maxxSloved[5]
+        ratingsum=maxxRating[2]+maxxRating[3]
+        if maxxRating[2] > 1400:
+        	ratingsum+=(maxxRating[2]-1400)*1
+        if maxxRating[2] > 1600:
+        	ratingsum+=(maxxRating[2]-1600)*3
+        if maxxRating[2] > 1800:
+        	ratingsum+=(maxxRating[2]-1800)*5
+
+        if maxxRating[3] > 1600:
+        	ratingsum+=(maxxRating[3]-1600)*1
+        if maxxRating[3] > 1800:
+        	ratingsum+=(maxxRating[3]-1800)*4
+
+        score_list[i]+=ratingsum
+        score_list[i]=int(score_list[i])
+    
+    aver=0
+    for i in range(len(username_list)):
+        aver+=score_list[i]
+    fm=len(username_list)
+    if fm > 5:
+        fm-=2
+    aver/=int(fm)
+    for i in range(len(username_list)):
+    	score_list[i]=aver+(score_list[i]-aver)*0.7
+    	score_list[i]=int(score_list[i])
     now_date = str(time.strftime("%Y-%m-%d"))
     for i in range(len(username_list)):
         score = str(score_list[i])
@@ -164,6 +170,7 @@ def cal_score():
 
     # 关闭数据库连接
     db.close()
+
 
 print "正在爬取数据...."
 do_clawer()

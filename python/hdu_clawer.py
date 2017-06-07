@@ -72,7 +72,7 @@ def output_hdu(result_hdu):  #result_xoj: xoj用户数据界面的前缀url
         print "       ",
         print alist[i][2],
         print "       ",
-        print alist[i][3]
+        print "------"
 
     # 打开数据库连接
     db = connect_mysql()

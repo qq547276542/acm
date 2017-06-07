@@ -90,7 +90,7 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
         print "       ",
         print alist[i][2],
         print "       ",
-        print alist[i][3]
+        print "------"
         print "       ",
         print alist[i][4]
 
