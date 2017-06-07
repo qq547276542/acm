@@ -71,12 +71,16 @@ def output_bestcoder(result_bestcoder):  #result_xoj: xoj用户数据界面的�
         list_recentID = zhenghe_bestcoder(result_bestcoder,line,imgre_recentID)
         if len(list_recentProblem)>1:
             list_recentProblem[0]=list_recentProblem[0].replace(" ","_")  #用下划线代替空格
+            list_recentProblem[0]=list_recentProblem[0].replace("'","_")  #转义
+            list_recentProblem[0]=list_recentProblem[0].replace('"','_')  #转义
             list_str=list_recentProblem[0]
             list_str=list_str+" "+list_recentID[0]
         else:
             list_str=""
         for i in range(1,len(list_recentProblem)):
             list_recentProblem[i]=list_recentProblem[i].replace(" ","_")  #用下划线代替空格
+            list_recentProblem[i]=list_recentProblem[i].replace("'","_")  #转义
+            list_recentProblem[i]=list_recentProblem[i].replace('"','_')  #转义
             list_str=list_str+" "+list_recentProblem[i]
             list_str=list_str+" "+list_recentID[i]
         alist.append(['暂时没用',line,number_solved,list_str,number_rating])  
@@ -90,9 +94,9 @@ def output_bestcoder(result_bestcoder):  #result_xoj: xoj用户数据界面的�
         print "       ",
         print alist[i][2],
         print "       ",
-        print alist[i][3]
+        print "------",
         print "       ",
-        print "------"
+        print alist[i][4]
 
     # 打开数据库连接
     db = connect_mysql()
@@ -116,13 +120,16 @@ def output_bestcoder(result_bestcoder):  #result_xoj: xoj用户数据界面的�
         sql = """UPDATE clawer SET
             sloved= """+str(alist[i][2])+",recent='"+alist[i][3]+"',problemurl='http://bestcoder.hdu.edu.cn/contests/contest_show.php?cid=',"+" rating='"+str(alist[i][4])+"""' 
             WHERE ojname='bestcoder' AND ojusername='"""+alist[i][1]+"' "
+
         try:
              # 执行sql语句
             cursor.execute(sql)
             # 提交到数据库执行
             db.commit()
-        except:
+        except Exception, e:
             # Rollback in case there is any error
+            print str(e)
+            print sql
             print "sql error"
             db.rollback()   
         # 关闭数据库连接

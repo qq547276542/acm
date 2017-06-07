@@ -71,12 +71,16 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
         list_recentID = zhenghe_codeforces(result_codeforces,line,imgre_recentID)
         if len(list_recentProblem)>1:
             list_recentProblem[0]=list_recentProblem[0].replace(" ","_")  #用下划线代替空格
+            list_recentProblem[0]=list_recentProblem[0].replace("'","_")  #转义
+            list_recentProblem[0]=list_recentProblem[0].replace('"','_')  #转义
             list_str=list_recentProblem[0]
             list_str=list_str+" "+list_recentID[0]
         else:
             list_str=""
         for i in range(1,len(list_recentProblem)):
             list_recentProblem[i]=list_recentProblem[i].replace(" ","_")  #用下划线代替空格
+            list_recentProblem[i]=list_recentProblem[i].replace("'","_")  #转义
+            list_recentProblem[i]=list_recentProblem[i].replace('"','_')  #转义
             list_str=list_str+" "+list_recentProblem[i]
             list_str=list_str+" "+list_recentID[i]
         alist.append(['暂时没用',line,number_solved,list_str,number_rating])  
@@ -90,7 +94,7 @@ def output_codeforces(result_codeforces):  #result_xoj: xoj用户数据界面的
         print "       ",
         print alist[i][2],
         print "       ",
-        print "------"
+        print "------",
         print "       ",
         print alist[i][4]
 

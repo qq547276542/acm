@@ -30,6 +30,10 @@
           <label for="confirm_sign_up">确认密码<nobr class="text-danger">&nbsp*</nobr></label>
           <input type="password" class="form-control" id="confirm_sign_up" placeholder="Confirm" name="confirmPassword">
         </div>
+        <div class="form-group">
+          <label for="invitation_sign_up">邀请码<nobr class="text-danger">&nbsp*</nobr></label>
+          <input type="text" class="form-control" id="invitation_sign_up" placeholder="invitation code" name="invitationCode">
+        </div>
         <div class="row"> 
           <div class="col-md-9"></div>
           <div class="col-md-3">

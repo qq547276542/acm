@@ -121,7 +121,7 @@ include 'tool/tool.php'
             <p style="font-size: 18px;"><span class="glyphicon glyphicon-pencil"></span>&nbsp<nobr>blog: </nobr> <nobr  class="text-info" > <a href=<?php echo "'".$blog."'" ?>> <?php echo $blog ?> </a></nobr></p>
           </div>
           <div class="col-md-4">
-           <img src=<?php echo "'"."picture/".$avatar."'"; ?> alt="您的照片" class="img-thumbnail"/>
+           <img src=<?php echo "'"."picture/".$avatar."'"; ?> alt="照片太帅无法显示" class="img-thumbnail"/>
          </div>
        </div>
 

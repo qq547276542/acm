@@ -42,10 +42,6 @@ include 'tool/tool.php'
         <div class="text-info">修改个人信息</div></div>
         <div class="panel-body">
           <form  action="form_check/edit_user_info_check.php" id="edit_user_info_form" enctype="multipart/form-data" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-              <label for="password">当前密码<nobr class="text-danger">&nbsp*</nobr></label>
-              <input type="password" class="form-control" id="password" name="password">
-            </div>
 
             <div class="form-group">
               <label for="update_email" class="control-label">Email<nobr class="text-danger">&nbsp*</nobr></label>

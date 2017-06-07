@@ -91,7 +91,9 @@ include 'tool/tool.php'
        <strong>Tips:</strong><br/><br/>
        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp1. 若用户在同一oj添加了多个账号，只会统计过题数最多的那个账号<br/>
        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2. 统计的是题目ac数而不是submit数，对于cf和bc只统计正式赛ac数<br/>
-       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp3. 刷题积分更新有延迟，由服务器每天定期更新<br/><br/><br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp3. 尽量在每个oj都绑定一个账号，这样积分才能比较高<br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp4. 如果在某个oj上的账号绑定了QQ号之类的第三方账号，请勿添加第三方账号，而应当添加oj账号<br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp5. 刷题积分不是实时更新的，而是由服务器每天定期更新<br/><br/><br/>
        
        <strong>oj缩写对应网址：</strong><br/><br/>
       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsppoj:&nbsp&nbsp&nbsp&nbsp<a href="http://poj.org">http://poj.org</a><br/>

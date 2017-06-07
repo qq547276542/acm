@@ -118,13 +118,17 @@ def cal_score():
         score_list[i]=int(score_list[i])
     
     aver=0
+    avernum=0
     for i in range(len(username_list)):
-        aver+=score_list[i]
-    fm=len(username_list)
-    if fm > 5:
-        fm-=2
-    aver/=int(fm)
+        if score_list[i] > 100:
+            aver+=score_list[i]
+            avernum+=1
+    if avernum < 0:
+    	avernum = 1
+    aver/=int(avernum)
     for i in range(len(username_list)):
+    	if score_list[i] == 0:
+    		continue
     	score_list[i]=aver+(score_list[i]-aver)*0.7
     	score_list[i]=int(score_list[i])
     now_date = str(time.strftime("%Y-%m-%d"))
@@ -173,6 +177,6 @@ def cal_score():
 
 
 print "正在爬取数据...."
-do_clawer()
+#do_clawer()
 print "数据爬取完成！"
 cal_score()

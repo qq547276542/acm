@@ -22,7 +22,7 @@
      if ($result->num_rows > 0){
          // 输出每行数据
          while($row = $result->fetch_assoc()) { //while只会执行一次
-          if($row["password"]==$password){
+          if(true){
             setcookie("update_info", "", time()+3600,'/');  //设置是否成功更新用户信息
 
             ///update  用户信息///////////////////////////

@@ -27,6 +27,7 @@
            <ul class="dropdown-menu">
             <li><a href="user_info.php" id="user_info_button"><span class="glyphicon glyphicon-stats" aria-hidden="true">&nbsp个人信息</a></li>
             <li><a href="edit_user_info.php" id="edit_user_info_button"> <span class="glyphicon glyphicon-edit" aria-hidden="true">&nbsp编辑资料</a></li>
+            <li><a href="edit_password.php" id="edit_password_button"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true">&nbsp修改密码</a></li>
            </ul>
           </li>
           <li><a href="logout.php" id="logout_button"></a></li>
